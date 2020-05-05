@@ -2,38 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7303546a-8553-4bdf-90f3-fad066d760fb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/express-session/HISTORY.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/express-session/HISTORY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/express-session/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/express-session/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/express-session/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/express-session/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/express-session/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/express-session/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/HISTORY.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/HISTORY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/lib/auth/plain.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/lib/auth/plain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/lib/connection/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/lib/connection/connection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/lib/cursor.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/lib/cursor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/lib/topologies/replset.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/lib/topologies/replset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/lib/topologies/replset_state.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/lib/topologies/replset_state.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/lib/topologies/shared.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/lib/topologies/shared.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb-core/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb-core/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/HISTORY.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/HISTORY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/conf.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/authenticate.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/authenticate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/collection.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/collection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/gridfs-stream/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/gridfs-stream/download.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/mongo_client.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/mongo_client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/mongos.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/mongos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/lib/url_parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/lib/url_parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/test.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -64,7 +46,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1588673829785</updated>
-      <workItem from="1588673830867" duration="1365000" />
+      <workItem from="1588673830867" duration="1702000" />
     </task>
     <servers />
   </component>
