@@ -21,7 +21,7 @@ let https = require('https');
 
 let expressSession = require('express-session');
 app.use(expressSession({
-    "secret" : 'abcdefg',
+    "secret" : 'solo_leveling',
     "resave": true,
     "saveUninitialized" : true
 }));
@@ -138,8 +138,8 @@ app.use('/audios/', routerAudios);
 app.use(express.static('public'));
 
 app.set('port', 8081);
-app.set('db', 'mongodb://admin:sdi@tiendamusica-shard-00-00-0abps.mongodb.net:27017,tiendamusica-shard-00-01-0abps.mongodb.net:27017,tiendamusica-shard-00-02-0abps.mongodb.net:27017/test?ssl=true&replicaSet=tiendamusica-shard-0&authSource=admin&retryWrites=true&w=majority');
-app.set('clave', 'abcdefg');
+app.set('db', 'mongodb://admin:solo_leveling@socialnetwork-shard-00-00-iaytk.mongodb.net:27017,socialnetwork-shard-00-01-iaytk.mongodb.net:27017,socialnetwork-shard-00-02-iaytk.mongodb.net:27017/test?ssl=true&replicaSet=socialnetwork-shard-0&authSource=admin&retryWrites=true&w=majority');
+app.set('clave', 'solo_leveling');
 app.set('crypto', crypto);
 
 require('./routes/rusuarios.js')(app, swig, gestorBD);
