@@ -143,10 +143,6 @@ app.set('clave', 'solo_leveling');
 app.set('crypto', crypto);
 
 require('./routes/rusuarios.js')(app, swig, gestorBD);
-require('./routes/rcanciones.js')(app, swig, gestorBD);
-require('./routes/rautores.js')(app, swig);
-require('./routes/rcomentarios.js')(app, swig, gestorBD);
-require("./routes/rapicanciones.js")(app, gestorBD);
 
 app.get('/', function(req, res) {
     res.redirect('/tienda');
