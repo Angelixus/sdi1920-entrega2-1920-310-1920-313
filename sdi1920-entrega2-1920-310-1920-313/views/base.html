@@ -26,12 +26,18 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li id="mMensajes" class="active"><a href="/tienda">Mensajes</a></li>
+        <li id="mUsuarios" class="active"><a href="/usuarios">Ver Usuarios</a></li>
+        <li id="mMensajes" class="active"><a href="/mensajes">Mensajes</a></li>
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-	    <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
+        {% if !isLogged %}
+        <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
         <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+        {% elif isLogged %}
+        <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesion</a></li>
+        {% endif %}
+
       </ul>
     </div>
   </div>
