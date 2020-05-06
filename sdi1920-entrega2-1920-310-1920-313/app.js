@@ -76,7 +76,6 @@ app.use('/api/cancion', routerUsuarioToken);
 
 let routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function(req, res, next) {
-    console.log("routerUsuarioSession");
     if(req.session.usuario)
         next();
     else {
