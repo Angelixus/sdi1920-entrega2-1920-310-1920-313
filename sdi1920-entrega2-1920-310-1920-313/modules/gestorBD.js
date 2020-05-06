@@ -39,11 +39,11 @@ module.exports = {
             }
         });
     },
-    "insertarUsuario" : function (usuario, functionCallback) {
+    "insertarUsuario" : function (usuario, mensajeError, functionCallback) {
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
-            if(err)
-                functionCallback(null);
+            if(err || mensajeError !== "")
+                functionCallback(null, mensajeError);
             else {
                 let collection = client.db(dbname).collection('usuarios');
                 collection.insert(usuario, function(err, result) {

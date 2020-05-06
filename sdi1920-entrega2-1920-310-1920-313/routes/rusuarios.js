@@ -9,16 +9,54 @@ module.exports = function(app, swig, gestorBD) {
     });
 
     app.post('/usuario', function(req, res) {
-        let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
+        let seguro = ""
+        let criterio = {email : req.body.email}
+        if(req.body.password !== "")
+            seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
-        let usuario = {email : req.body.email, password : seguro}
 
-        gestorBD.insertarUsuario(usuario, function(id) {
-            if(id == null){
-                res.redirect("/registrarse"+"?mensaje=Error al registrar usuario");
+        let usuario = {
+            nombre : req.body.nombre,
+            apellidos : req.body.apellidos,
+            email : req.body.email,
+            password : seguro,
+        }
+        let repeated = false;
+        let repeatedUser;
+        gestorBD.obtenerUsuarios(criterio, function(usuarios) {
+            if(usuarios == null|| usuarios.length == 0) {
+                repeated = true;
+                let mensajeError = "";
+                if(usuario.nombre === ""){
+                    mensajeError += "El campo nombre no puede estar vacio.";
+                }else if(usuario.apellidos === ""){
+                    mensajeError += "El campo apellidos no puede estar vacio.";
+                }else if(usuario.email === ""){
+                    mensajeError += "El campo email no puede estar vacio.";
+                }else if(usuario.password === ""){
+                    mensajeError += "El campo contraseña no puede estar vacio.";
+                }else if(req.body.password !== req.body.repeatpassword){
+                    mensajeError += "Las contraseñas no coinciden.";
+                }
+
+                gestorBD.insertarUsuario(usuario, mensajeError,function(id, mensajeError) {
+                    if(id == null){
+                        res.redirect("/registrarse"+"?mensaje=" + mensajeError);
+                    } else{
+                        res.redirect("/identificarse"+"?mensaje=Nuevo usuario registrado");
+                    }
+                });
             } else{
-                res.redirect("/identificarse"+"?mensaje=Nuevo usuario registrado");            }
-        });
+                mensajeError = "Este email ya esta en uso"
+                gestorBD.insertarUsuario(usuario, mensajeError,function(id, mensajeError) {
+                    if(id == null){
+                        res.redirect("/registrarse"+"?mensaje=" + mensajeError);
+                    } else{
+                        res.redirect("/identificarse"+"?mensaje=Nuevo usuario registrado");
+                    }
+                });
+            }});
+
     });
 
     app.get("/identificarse", function(req, res) {
