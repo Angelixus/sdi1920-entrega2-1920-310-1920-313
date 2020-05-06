@@ -3,6 +3,7 @@ let app = express();
 
 let rest = require('request');
 app.set('rest',rest);
+app.set('dbname', 'socialnetwork');
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -75,7 +76,6 @@ app.use('/api/cancion', routerUsuarioToken);
 
 let routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function(req, res, next) {
-    console.log("routerUsuarioSession");
     if(req.session.usuario)
         next();
     else {
@@ -143,10 +143,6 @@ app.set('clave', 'solo_leveling');
 app.set('crypto', crypto);
 
 require('./routes/rusuarios.js')(app, swig, gestorBD);
-require('./routes/rcanciones.js')(app, swig, gestorBD);
-require('./routes/rautores.js')(app, swig);
-require('./routes/rcomentarios.js')(app, swig, gestorBD);
-require("./routes/rapicanciones.js")(app, gestorBD);
 
 app.get('/', function(req, res) {
     res.redirect('/tienda');
