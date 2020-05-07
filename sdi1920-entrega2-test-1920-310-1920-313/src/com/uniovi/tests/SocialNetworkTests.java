@@ -21,9 +21,9 @@ public class SocialNetworkTests {
 	//static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	//static String Geckdriver024 = "C:\\Path\\geckodriver024win64.exe";
 	//En MACOSX (Debe ser la versión 65.0.1 y desactivar las actualizacioens automáticas):
-	static String PathFirefox65 = "/Applications/Firefox 2.app/Contents/MacOS/firefox-bin";
+	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	//static String PathFirefox64 = "/Applications/Firefox.app/Contents/MacOS/firefox-bin";
-	static String Geckdriver024 = "/Users/delacal/Documents/SDI1718/firefox/geckodriver024mac";
+	static String Geckdriver024 = "C:\\Users\\angel\\Desktop\\SDI_Entrega_2\\sdi1920-entrega2-1920-310-1920-313\\sdi1920-entrega2-test-1920-310-1920-313\\lib\\geckodriver024win64.exe";
 	//static String Geckdriver022 = "/Users/delacal/Documents/SDI1718/firefox/geckodriver023mac";
 	//Común a Windows y a MACOSX
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024); 
