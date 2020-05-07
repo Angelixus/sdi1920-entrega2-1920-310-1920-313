@@ -83,6 +83,8 @@ routerUsuarioSession.use(function(req, res, next) {
         res.redirect('/identificarse');
     }
 });
+app.use('/usuarios', routerUsuarioSession)
+
 let routerUsuarioAutor = express.Router();
 routerUsuarioAutor.use(function(req, res, next) {
     console.log("routerUsuarioAutor");
@@ -145,7 +147,7 @@ app.set('crypto', crypto);
 require('./routes/rusuarios.js')(app, swig, gestorBD);
 
 app.get('/', function(req, res) {
-    res.redirect('/tienda');
+    res.send(swig.renderFile("views/bhome.html"))
 });
 
 app.use(function(err, req, res, next) {
