@@ -26,8 +26,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        {% if isLogged %}
         <li id="mUsuarios" class="active"><a href="/usuarios">Ver Usuarios</a></li>
         <li id="mMensajes" class="active"><a href="/mensajes">Mensajes</a></li>
+        {% endif %}
 
       </ul>
       <ul class="nav navbar-nav navbar-right">

@@ -73,6 +73,27 @@ module.exports = {
             }
         })
     },
+    "obtenerUsuariosPg" : function(criterio,pg,funcionCallback){
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, client) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = client.db(dbname).collection('usuarios');
+                collection.count(function(err, count){
+                    collection.find(criterio).skip( (pg-1)*5 ).limit( 5 )
+                        .toArray(function(err, usuarios) {
+                            if (err) {
+                                funcionCallback(null);
+                            } else {
+                                funcionCallback(usuarios, count);
+                            }
+                            client.close();
+                        });
+                });
+            }
+        });
+    },
     "modificarCancion" : function(criterio, cancion, functionCallback) {
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
