@@ -48,21 +48,18 @@ public class SocialNetworkTests {
 	}
 	@BeforeClass 
 	static public void begin() {
-		//COnfiguramos las pruebas.
-		//Fijamos el timeout en cada opción de carga de una vista. 2 segundos.
 		PO_View.setTimeout(3);
 
 	}
 	@AfterClass
 	static public void end() {
-		//Cerramos el navegador al finalizar las pruebas
 		driver.quit();
 	}
 
 	//PR01. Sin hacer /
 	@Test
 	public void PR01() {
-		assertTrue("PR01 sin hacer", false);			
+		PO_HomeView.clickOption(driver, "registrarse", "class", "btn btn-primary");
 	}
 
 	//PR02. Sin hacer /
