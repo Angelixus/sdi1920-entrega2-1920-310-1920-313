@@ -108,4 +108,9 @@ public class SeleniumUtils {
 			}
 		}
 	}
+	
+	public static Boolean EsperarCargarPaginaElementoNoExiste(WebDriver driver, String xpath, int timeout) {
+		return (new WebDriverWait(driver, timeout))
+				.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xpath)));
+	}
 }
