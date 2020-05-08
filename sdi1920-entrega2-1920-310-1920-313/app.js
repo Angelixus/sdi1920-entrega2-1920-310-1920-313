@@ -90,7 +90,7 @@ app.use('/amigos', routerUsuarioSession)
 let routerUsuarioSessionIdentificado = express.Router();
 routerUsuarioSessionIdentificado.use(function(req, res, next) {
     if(req.session.usuario)
-        res.redirect('/usuarios');
+        res.redirect('/home');
     else {
         next();
     }
