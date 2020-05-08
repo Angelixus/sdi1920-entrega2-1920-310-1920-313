@@ -1,32 +1,36 @@
 module.exports = function (app, swig, gestorBD) {
     app.get('/amigos', function (req, res) {
-        let searchText = req.query.searchText;
-        if(searchText === undefined)
-            searchText = "";
-
         let criterio = {
-            $or: [
-                {
-                    "nombre": {
-                        $regex: ".*" + searchText + ".*",
-                        $options: 'i'
-                    }
-                }, {
-                    "apellidos": {
-                        $regex: ".*" + searchText + ".*",
-                        $options: 'i'
-                    }
-                }, {"email": {
-                        $regex: ".*" + searchText + ".*",
-                        $options: 'i'}
-                }]
-        };
-
+            "_id": gestorBD.mongo.ObjectID(req.session.usuarioId),
+        }
         gestorBD.obtenerUsuario(criterio, function (user) {
             let amigos = user.friend_ids
+            let searchText = req.query.searchText;
+            if(searchText === undefined)
+                searchText = "";
+
             let allIdsCriterio = {
-                "_id": {$in: amigos}
-            }
+                $or: [
+                    {
+                        "nombre": {
+                            $regex: ".*" + searchText + ".*",
+                            $options: 'i'
+                        }
+                    }, {
+                        "apellidos": {
+                            $regex: ".*" + searchText + ".*",
+                            $options: 'i'
+                        }
+                    }, {"email": {
+                            $regex: ".*" + searchText + ".*",
+                            $options: 'i'}
+                    }],
+                $and: [
+                    {
+                        "_id": {$in: amigos}
+                    }
+                ]
+            };
             let pg = parseInt(req.query.pg);
             if (req.query.pg === undefined)
                 pg = 1;
