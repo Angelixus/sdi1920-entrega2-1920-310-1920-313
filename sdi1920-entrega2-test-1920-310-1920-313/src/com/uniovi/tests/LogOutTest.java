@@ -1,5 +1,7 @@
 package com.uniovi.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.UUID;
 
 import org.bson.conversions.Bson;
@@ -24,10 +26,11 @@ import com.uniovi.properties.PropertyLoader;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
+import com.uniovi.tests.pageobjects.PO_View;
 
 //Ordenamos las pruebas por el nombre del mÃ©todo
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class LogInTest {
+public class LogOutTest {
 	static String PathFirefox65 = PropertyLoader.getInstance().getProperty("firefox_path");
 	static String Geckdriver024 = PropertyLoader.getInstance().getProperty("geckodriver_path");
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
@@ -72,7 +75,7 @@ public class LogInTest {
 	}
 
 	@Test
-	public void PR05() {
+	public void PR09() {
 		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "GOHWinner@gmail.com", "123456");
 		PO_LoginView.checkElement(driver, "class", "btn btn-default");
@@ -80,25 +83,8 @@ public class LogInTest {
 	}
 
 	@Test
-	public void PR06() {
-		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "", "123");
-		PO_HomeView.checkElement(driver, "text", "El campo email no puede estar vacio");
-		PO_LoginView.fillForm(driver, "GOHWinner@gmail.com", "");
-		PO_HomeView.checkElement(driver, "text", "El campo contraseña no puede estar vacio");
-	}
-
-	@Test
-	public void PR07() {
-		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "GOHWinner@gmail.com", "123");
-		PO_HomeView.checkElement(driver, "text", "La contraseña introducida no es correcta");
-	}
-
-	@Test
-	public void PR08() {
-		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "GOHLosser@gmail.com", "123456");
-		PO_HomeView.checkElement(driver, "text", "El email introducido no existe");
+	public void PR10() {
+		Boolean shouldBeTrue = PO_View.checkElementDoesNotExist(driver, "//nav//li//a[@href=\"/desconectarse\"]");
+		assertTrue(shouldBeTrue);		
 	}
 }

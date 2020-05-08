@@ -115,12 +115,27 @@ module.exports = function (app, swig, gestorBD) {
     app.post("/identificarse", function (req, res) {
         let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
-        let criterio = {email: req.body.email, password: seguro}
+        let criterio = {email: req.body.email}
+        let mensajeError = "";
+        if(criterio.email === "")
+            mensajeError = "El campo email no puede estar vacio";
+
         gestorBD.obtenerUsuarios(criterio, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
                 req.session.usuario = null;
-                res.redirect("/identificarse" + "?mensaje=Email o password incorrecto" + "&tipoMensaje=alert-danger ");
+                if(mensajeError === "")
+                    mensajeError = "El email introducido no existe";
+
+                res.redirect("/identificarse" + "?mensaje=" + mensajeError + "&tipoMensaje=alert-danger ");
+            }
+            else if(seguro !== usuarios[0].password) {
+                mensajeError = "La contraseña introducida no es correcta";
+                if(req.body.password ==="")
+                    mensajeError = "El campo contraseña no puede estar vacio"
+
+                res.redirect("/identificarse" + "?mensaje="+ mensajeError + "&tipoMensaje=alert-danger ");
             } else {
+
                 req.session.usuario = usuarios[0].email;
                 res.redirect("/usuarios");
             }
