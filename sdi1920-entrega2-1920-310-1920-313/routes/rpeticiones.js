@@ -105,9 +105,9 @@ module.exports = function (app, swig, gestorBD) {
                     }
                 }
 
-                usuario.friendRequest_ids.splice(indexOfFriend, 1);
-                usuario.friend_ids.push(gestorBD.mongo.ObjectID(req.params.id))
                 if (hasFriendRequestId) {
+                    usuario.friendRequest_ids.splice(indexOfFriend, 1);
+                    usuario.friend_ids.push(gestorBD.mongo.ObjectID(req.params.id));
                     let usuarioSession = {
                         "_id": usuario._id,
                         "nombre": usuario.nombre,
