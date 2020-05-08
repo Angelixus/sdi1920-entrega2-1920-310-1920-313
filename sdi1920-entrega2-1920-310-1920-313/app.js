@@ -84,6 +84,7 @@ routerUsuarioSession.use(function(req, res, next) {
     }
 });
 app.use('/usuarios', routerUsuarioSession)
+app.use('/peticiones', routerUsuarioSession)
 
 let routerUsuarioAutor = express.Router();
 routerUsuarioAutor.use(function(req, res, next) {
@@ -145,6 +146,7 @@ app.set('clave', 'solo_leveling');
 app.set('crypto', crypto);
 
 require('./routes/rusuarios.js')(app, swig, gestorBD);
+require('./routes/rpeticiones.js')(app, swig, gestorBD);
 
 app.get('/', function(req, res) {
     res.send(swig.renderFile("views/bhome.html"))

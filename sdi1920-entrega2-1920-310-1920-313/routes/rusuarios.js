@@ -19,7 +19,12 @@ module.exports = function (app, swig, gestorBD) {
             }, {"email": {
                     $regex: ".*" + searchText + ".*",
                     $options: 'i'}
-            }]
+            }],
+            $and: [
+                {
+                    "email": {$ne: req.session.usuario}
+                }
+            ]
         };
         let pg = parseInt(req.query.pg);
         if(req.query.pg === undefined)
@@ -39,12 +44,61 @@ module.exports = function (app, swig, gestorBD) {
                         paginas.push(i);
                     }
                 }
-                res.send(swig.renderFile("views/busuarios.html", {
-                    isLogged: req.session.usuario,
-                    "users": usuarios,
-                    "paginas": paginas,
-                    "actual": pg
-                }));
+                var methodsFriend = {
+                    "isAlreadyFriend": function() {
+                        let res = false;
+                        for(let elementIndex in this.friend_ids) {
+                            if(this.friend_ids[elementIndex].toString() === req.session.usuarioId) {
+                                res = true;
+                                break;
+                            }
+                        }
+                        return res;
+                    },
+                    "didReceiveRequestFromLogged": function() {
+                        let res = false;
+                        for(let elementIndex in this.friendRequest_ids) {
+                            if(this.friendRequest_ids[elementIndex].toString() === req.session.usuarioId) {
+                                res = true;
+                                break;
+                            }
+                        }
+                        return res;
+                    }
+                }
+
+                for(let userDB in usuarios) {
+                    for(let method in methodsFriend) {
+                        usuarios[userDB][method] = methodsFriend[method];
+                    }
+                }
+                gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.session.usuarioId)}, function(usuarioFromDB) {
+                    if(usuarioFromDB !== null) {
+                        var method = {
+                            "didReceiveRequestFromOther": function (user) {
+                                let res = false;
+                                for(let elementIndex in this.friendRequest_ids) {
+                                    if(this.friendRequest_ids[elementIndex].toString() === user._id.toString()) {
+                                        res = true;
+                                        break;
+                                    }
+                                }
+                                return res;
+                            }
+                        }
+                        usuarioFromDB["didReceiveRequestFromOther"] = method["didReceiveRequestFromOther"]
+
+                        res.send(swig.renderFile("views/busuarios.html", {
+                            "usuarioSession": req.session.usuario,
+                            "users": usuarios,
+                            "paginas": paginas,
+                            "actual": pg,
+                            "usuarioSessionObj": usuarioFromDB
+                        }));
+                    } else {
+                        res.redirect("/error");
+                    }
+                });
             }
         })
     });
@@ -66,7 +120,8 @@ module.exports = function (app, swig, gestorBD) {
             apellidos: req.body.apellidos,
             email: req.body.email,
             password: seguro,
-            friend_ids: []
+            friend_ids: [],
+            friendRequest_ids: []
         }
         let repeated = false;
         let repeatedUser;
@@ -119,9 +174,11 @@ module.exports = function (app, swig, gestorBD) {
         gestorBD.obtenerUsuarios(criterio, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
                 req.session.usuario = null;
+                req.session.usuarioId = null;
                 res.redirect("/identificarse" + "?mensaje=Email o password incorrecto" + "&tipoMensaje=alert-danger ");
             } else {
                 req.session.usuario = usuarios[0].email;
+                req.session.usuarioId = usuarios[0]._id;
                 res.redirect("/usuarios");
             }
         });
@@ -129,6 +186,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get('/desconectarse', function (req, res) {
         req.session.usuario = null;
+        req.session.usuarioId = null;
         res.redirect("/identificarse");
     });
 };
