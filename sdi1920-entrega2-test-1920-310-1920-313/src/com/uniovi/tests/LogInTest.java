@@ -82,21 +82,23 @@ public class LogInTest {
 	@Test
 	public void PR06() {
 		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
-		PO_LoginView.fillForm(driver, "", "");
-		PO_HomeView.checkElement(driver, "text", "Email o password incorrecto");
+		PO_LoginView.fillForm(driver, "", "123");
+		PO_HomeView.checkElement(driver, "text", "El campo email no puede estar vacio");
+		PO_LoginView.fillForm(driver, "GOHWinner@gmail.com", "");
+		PO_HomeView.checkElement(driver, "text", "El campo contraseña no puede estar vacio");
 	}
 
 	@Test
 	public void PR07() {
 		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "GOHWinner@gmail.com", "123");
-		PO_HomeView.checkElement(driver, "text", "Email o password incorrecto");
+		PO_HomeView.checkElement(driver, "text", "La contraseña introducida no es correcta");
 	}
 
 	@Test
 	public void PR08() {
 		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
 		PO_LoginView.fillForm(driver, "GOHLosser@gmail.com", "123456");
-		PO_HomeView.checkElement(driver, "text", "Email o password incorrecto");
+		PO_HomeView.checkElement(driver, "text", "El email introducido no existe");
 	}
 }
