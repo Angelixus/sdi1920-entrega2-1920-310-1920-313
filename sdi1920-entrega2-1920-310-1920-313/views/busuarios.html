@@ -26,11 +26,43 @@
             </thead>
             <tbody>
             {% for user in users %}
-            <tr>
-                <td>{{user.nombre}}</td>
-                <td>{{user.apellidos}}</td>
-                <td>{{user.email}}</td>
-            </tr>
+                <tr>
+                    <td>{{user.nombre}}</td>
+                    <td>{{user.apellidos}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        {% if user.isAlreadyFriend() == false && user.didReceiveRequestFromLogged() == false %}
+                            <div id="friendRequestTableDiv{{user._id.toString()}}">
+                                {% if user.didReceiveRequestFromLogged() == false && usuarioSessionObj.didReceiveRequestFromOther(user) == false%}
+                                    <div>
+                                        <button type="button" id="sendRequestButton{{user._id.toString()}}"
+                                                class="btn btn-info">Enviar Petición</button>
+                                        <script>
+                                            /*<![CDATA[*/
+                                            $( "#sendRequestButton{{user._id.toString()}}" ).click(function() {
+                                                $.get( "/user/{{user._id.toString()}}/send", function( data ) {
+                                                    $("#sendRequestButton{{user._id.toString()}}").remove();
+                                                    $("#friendRequestTableDiv{{user._id.toString()}}").append("<div><p>Petición de amistad ya enviada o recibida.</p></div>");
+                                                });
+                                            });
+                                            /*]]>*/
+                                        </script>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {% if user.didReceiveRequestFromLogged() == true || usuarioSessionObj.didReceiveRequestFromOther(user) == true %}
+                            <div>
+                                <p>Petición de amistad ya enviada o recibida.</p>
+                            </div>
+                        {% endif %}
+                        {% if user.isAlreadyFriend() == true %}
+                            <div>
+                                <p>Ya es amigo del usuario.</p>
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

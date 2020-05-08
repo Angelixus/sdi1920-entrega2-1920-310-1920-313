@@ -26,17 +26,18 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        {% if isLogged %}
+        {% if usuarioSession %}
         <li id="mUsuarios" class="active"><a href="/usuarios">Ver Usuarios</a></li>
+        <li id="mPeticiones" class="active"><a href="/peticiones">Peticiones de Amistad</a></li>
         <li id="mMensajes" class="active"><a href="/mensajes">Mensajes</a></li>
         {% endif %}
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if !isLogged %}
+        {% if !usuarioSession %}
         <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
         <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
-        {% elif isLogged %}
+        {% elif usuarioSession %}
         <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesion</a></li>
         {% endif %}
 

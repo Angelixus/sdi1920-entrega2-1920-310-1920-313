@@ -73,6 +73,39 @@ module.exports = {
             }
         })
     },
+    "updateUsuario": function (filter, updateOperation, functionCallback) {
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
+            if(err)
+                functionCallback(null);
+            else {
+                let collection = client.db(dbname).collection('usuarios');
+                collection.updateMany(filter, updateOperation, function (err, result) {
+                    if(err)
+                        functionCallback(false);
+                    else
+                        functionCallback(true);
+                })
+            }
+        });
+    },
+    "obtenerUsuario": function(criterio, functionCallback) {
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
+            if(err)
+                functionCallback(null);
+            else {
+                let collection = client.db(dbname).collection('usuarios');
+                collection.find(criterio).toArray( function (err, usuarios) {
+                    if(err)
+                        functionCallback(null);
+                    else
+                        functionCallback(usuarios[0]);
+                    client.close();
+                });
+            }
+        })
+    },
     "obtenerUsuariosPg" : function(criterio,pg,funcionCallback){
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, client) {
@@ -94,13 +127,13 @@ module.exports = {
             }
         });
     },
-    "modificarCancion" : function(criterio, cancion, functionCallback) {
+    "modificarUsuario" : function(criterio, cancion, functionCallback) {
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
             if(err)
                 functionCallback(null);
             else {
-                let collection = client.db(dbname).collection('canciones');
+                let collection = client.db(dbname).collection('usuarios');
                 collection.update(criterio, {$set : cancion}, function (err, result) {
                     if(err)
                         functionCallback(null);
@@ -263,5 +296,5 @@ module.exports = {
                 });
             }
         });
-    }
+    },
 };
