@@ -58,9 +58,30 @@ module.exports = function (app, swig, gestorBD) {
         }
         gestorBD.obtenerUsuario(criterio, function (user) {
             let peticiones = user.friendRequest_ids
+
+            let searchText = req.query.searchText;
+            if(searchText === undefined)
+                searchText = "";
+
             let allIdsCriterio = {
-                "_id": {$in: peticiones}
-            }
+                $or: [
+                    {
+                        "nombre": {
+                            $regex: ".*" + searchText + ".*",
+                            $options: 'i'
+                        }
+                    }, {
+                        "apellidos": {
+                            $regex: ".*" + searchText + ".*",
+                            $options: 'i'
+                        }
+                    }],
+                $and: [
+                    {
+                        "_id": {$in: peticiones}
+                    }
+                ]
+            };
             let pg = parseInt(req.query.pg);
             if (req.query.pg === undefined)
                 pg = 1;
