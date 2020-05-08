@@ -1,18 +1,22 @@
 package com.uniovi.tests;
-//Paquetes Java
-import java.util.List;
-//Paquetes JUnit 
-import org.junit.*;
-import org.junit.runners.MethodSorters;
 import static org.junit.Assert.assertTrue;
+
+//Paquetes JUnit 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
 //Paquetes Selenium 
-import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.*;
-//Paquetes Utilidades de Testing Propias
-import com.uniovi.tests.util.SeleniumUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import com.uniovi.properties.PropertyLoader;
 //Paquetes con los Page Object
-import com.uniovi.tests.pageobjects.*;
+import com.uniovi.tests.pageobjects.PO_HomeView;
+import com.uniovi.tests.pageobjects.PO_View;
 
 
 //Ordenamos las pruebas por el nombre del método
