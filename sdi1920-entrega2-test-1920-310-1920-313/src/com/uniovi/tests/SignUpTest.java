@@ -54,7 +54,7 @@ public class SignUpTest {
 
 	@BeforeClass
 	static public void begin() {
-		MongoClient client = new MongoClient(new MongoClientURI("mongodb://admin:solo_leveling@socialnetwork-shard-00-00-iaytk.mongodb.net:27017,socialnetwork-shard-00-01-iaytk.mongodb.net:27017,socialnetwork-shard-00-02-iaytk.mongodb.net:27017/test?ssl=true&replicaSet=socialnetwork-shard-0&authSource=admin&retryWrites=true&w=majority"));
+		MongoClient client = new MongoClient(new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
 		MongoDatabase database = client.getDatabase("socialnetwork");
 		Block<Document> printBlock = new Block<Document>() {
 		       @Override
