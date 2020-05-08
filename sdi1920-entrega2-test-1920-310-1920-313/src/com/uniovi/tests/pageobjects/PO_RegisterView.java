@@ -7,24 +7,24 @@ import org.openqa.selenium.WebElement;
 
 public class PO_RegisterView extends PO_NavView {	
 	
-	static public void fillForm(WebDriver driver, String dnip, String namep, String lastnamep, String passwordp, String passwordconfp) {
-		WebElement dni = driver.findElement(By.name("dni"));
+	static public void fillForm(WebDriver driver, String namep, String surnamep, String emailp, String passwordp, String passwordconfp) {
+		WebElement dni = driver.findElement(By.name("nombre"));
 		dni.click();
 		dni.clear();
-		dni.sendKeys(dnip);
-		WebElement name = driver.findElement(By.name("name"));
+		dni.sendKeys(namep);
+		WebElement name = driver.findElement(By.name("apellidos"));
 		name.click();
 		name.clear();
-		name.sendKeys(namep);
-		WebElement lastname = driver.findElement(By.name("lastName"));
+		name.sendKeys(surnamep);
+		WebElement lastname = driver.findElement(By.name("email"));
 		lastname.click();
 		lastname.clear();
-		lastname.sendKeys(lastnamep);
+		lastname.sendKeys(emailp);
 		WebElement password = driver.findElement(By.name("password"));
 		password.click();
 		password.clear();
 		password.sendKeys(passwordp);
-		WebElement passwordConfirm = driver.findElement(By.name("passwordConfirm"));
+		WebElement passwordConfirm = driver.findElement(By.name("repeatpassword"));
 		passwordConfirm.click();
 		passwordConfirm.clear();
 		passwordConfirm.sendKeys(passwordconfp);
