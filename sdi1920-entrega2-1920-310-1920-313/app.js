@@ -85,61 +85,21 @@ routerUsuarioSession.use(function(req, res, next) {
 });
 app.use('/usuarios', routerUsuarioSession)
 app.use('/peticiones', routerUsuarioSession)
+app.use('/amigos', routerUsuarioSession)
 
-let routerUsuarioAutor = express.Router();
-routerUsuarioAutor.use(function(req, res, next) {
-    console.log("routerUsuarioAutor");
-    let path = require('path');
-    let id = path.basename(req.originalUrl);
-    gestorBD.obtenerCanciones(
-        {_id: mongo.ObjectID(id) }, function (canciones) {
-            console.log(canciones[0]);
-            if(canciones[0].autor == req.session.usuario ){
-                next();
-            } else {
-                res.redirect("/tienda");
-            }
-        })
+let routerUsuarioSessionIdentificado = express.Router();
+routerUsuarioSessionIdentificado.use(function(req, res, next) {
+    if(req.session.usuario)
+        res.redirect('/usuarios');
+    else {
+        next();
+    }
 });
+app.use('/registrarse', routerUsuarioSessionIdentificado)
+app.use('/identificarse', routerUsuarioSessionIdentificado)
 
-app.use("/cancion/modificar",routerUsuarioAutor);
-app.use("/cancion/eliminar",routerUsuarioAutor);
-app.use('/canciones/agregar', routerUsuarioSession);
-app.use('/publicaciones', routerUsuarioSession);
-app.use("/cancion/comprar",routerUsuarioSession);
-app.use("/compras",routerUsuarioSession);
-
-let routerAudios = express.Router();
-routerAudios.use(function(req, res, next) {
-    console.log("routerAudios");
-    let path = require('path');
-    let idCancion = path.basename(req.originalUrl, '.mp3');
-
-    gestorBD.obtenerCanciones({"_id" : mongo.ObjectID(idCancion)}, function(canciones) {
-        if(req.session.usuario && canciones[0].autor == req.session.usuario)
-            next();
-        else {
-            let criterio = {
-                usuario : req.session.usuario,
-                cancionId : mongo.ObjectID(idCancion)
-            };
-
-            gestorBD.obtenerCompras(criterio ,function(compras){
-                if (compras != null && compras.length > 0 ){
-                    next();
-                    return;
-                } else {
-                    res.redirect("/tienda");
-                }
-            });
-        }
-    });
-});
-
-app.use('/audios/', routerAudios);
 
 app.use(express.static('public'));
-
 app.set('port', 8081);
 app.set('db', 'mongodb://admin:solo_leveling@socialnetwork-shard-00-00-iaytk.mongodb.net:27017,socialnetwork-shard-00-01-iaytk.mongodb.net:27017,socialnetwork-shard-00-02-iaytk.mongodb.net:27017/test?ssl=true&replicaSet=socialnetwork-shard-0&authSource=admin&retryWrites=true&w=majority');
 app.set('clave', 'solo_leveling');
@@ -147,9 +107,14 @@ app.set('crypto', crypto);
 
 require('./routes/rusuarios.js')(app, swig, gestorBD);
 require('./routes/rpeticiones.js')(app, swig, gestorBD);
+require('./routes/ramigos.js')(app, swig, gestorBD);
+
+app.get('/home', function(req, res) {
+    res.send(swig.renderFile("views/bhome.html"))
+});
 
 app.get('/', function(req, res) {
-    res.send(swig.renderFile("views/bhome.html"))
+    res.redirect("/home");
 });
 
 app.use(function(err, req, res, next) {
