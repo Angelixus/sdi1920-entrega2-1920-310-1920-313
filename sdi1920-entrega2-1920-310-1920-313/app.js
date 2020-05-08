@@ -109,8 +109,10 @@ require('./routes/rusuarios.js')(app, swig, gestorBD);
 require('./routes/rpeticiones.js')(app, swig, gestorBD);
 require('./routes/ramigos.js')(app, swig, gestorBD);
 
-app.get('/home', function(req, res) {
-    res.send(swig.renderFile("views/bhome.html"))
+app.get("/home", function(req, res) {
+    res.send(swig.renderFile("views/bhome.html", {
+        "usuarioSession": req.session.usuario
+    }))
 });
 
 app.get('/', function(req, res) {
