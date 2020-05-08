@@ -66,6 +66,7 @@ module.exports = function (app, swig, gestorBD) {
             apellidos: req.body.apellidos,
             email: req.body.email,
             password: seguro,
+            friend_ids: []
         }
         let repeated = false;
         let repeatedUser;
@@ -89,16 +90,16 @@ module.exports = function (app, swig, gestorBD) {
                     if (id == null) {
                         res.redirect("/registrarse" + "?mensaje=" + mensajeError);
                     } else {
-                        res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado");
+                        res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado.");
                     }
                 });
             } else {
-                mensajeError = "Este email ya esta en uso"
+                mensajeError = "Este email ya esta en uso."
                 gestorBD.insertarUsuario(usuario, mensajeError, function (id, mensajeError) {
                     if (id == null) {
                         res.redirect("/registrarse" + "?mensaje=" + mensajeError);
                     } else {
-                        res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado");
+                        res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado.");
                     }
                 });
             }
