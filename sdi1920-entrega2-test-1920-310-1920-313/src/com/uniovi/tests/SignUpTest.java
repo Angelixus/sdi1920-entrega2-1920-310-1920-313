@@ -1,10 +1,8 @@
 package com.uniovi.tests;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.UUID;
 
-import org.bson.Document;
+import org.bson.conversions.Bson;
 //Paquetes JUnit 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,10 +15,10 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.uniovi.properties.PropertyLoader;
 //Paquetes con los Page Object
 import com.uniovi.tests.pageobjects.PO_HomeView;
@@ -34,6 +32,8 @@ public class SignUpTest {
 	static String Geckdriver024 = PropertyLoader.getInstance().getProperty("geckodriver_path");
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "https://localhost:8081";
+	
+	private String name;
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -49,21 +49,20 @@ public class SignUpTest {
 
 	@After
 	public void tearDown() {
+		if (name != "") {
+			MongoClient client = new MongoClient(
+					new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
+			MongoDatabase database = client.getDatabase("socialnetwork");
+			Bson filter = Filters.eq("nombre", name);
+			database.getCollection("usuarios").deleteOne(filter);
+			client.close();
+		}
+		name = "";
 		driver.manage().deleteAllCookies();
 	}
 
 	@BeforeClass
 	static public void begin() {
-		MongoClient client = new MongoClient(new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
-		MongoDatabase database = client.getDatabase("socialnetwork");
-		Block<Document> printBlock = new Block<Document>() {
-		       @Override
-		       public void apply(final Document document) {
-		           System.out.println(document.toJson());
-		       }
-		};
-		database.getCollection("usuarios").find().forEach(printBlock);
-		client.close();
 	}
 
 	@AfterClass
@@ -73,8 +72,9 @@ public class SignUpTest {
 
 	@Test
 	public void PR01() {
+		name = UUID.randomUUID().toString();
 		PO_HomeView.clickOption(driver, "registrarse", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString() + "@uniovi.com", "123456", "123456");
+		PO_RegisterView.fillForm(driver, name, UUID.randomUUID().toString(), UUID.randomUUID().toString() + "@uniovi.com", "123456", "123456");
 		PO_LoginView.checkElement(driver, "class", "btn btn-primary");
 	}
 
@@ -97,6 +97,7 @@ public class SignUpTest {
 	}
 	@Test
 	public void PR04() {
-		assertTrue("PR04 sin hacer", false);
-	}
+		PO_HomeView.clickOption(driver, "registrarse", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, "Mori", "Jin", "Monarch@gmail.com", "123456", "123456");
+		PO_HomeView.checkElement(driver, "text", "Este email ya esta en uso.");	}
 }

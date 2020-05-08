@@ -2,9 +2,6 @@ package com.uniovi.tests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.UUID;
-
-import org.bson.conversions.Bson;
 //Paquetes JUnit 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,15 +14,10 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import com.uniovi.properties.PropertyLoader;
 //Paquetes con los Page Object
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
-import com.uniovi.tests.pageobjects.PO_RegisterView;
 import com.uniovi.tests.pageobjects.PO_View;
 
 //Ordenamos las pruebas por el nombre del método
@@ -35,8 +27,6 @@ public class LogOutTest {
 	static String Geckdriver024 = PropertyLoader.getInstance().getProperty("geckodriver_path");
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "https://localhost:8081";
-
-	private String name;
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -52,15 +42,6 @@ public class LogOutTest {
 
 	@After
 	public void tearDown() {
-		if (name != "") {
-			MongoClient client = new MongoClient(
-					new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
-			MongoDatabase database = client.getDatabase("socialnetwork");
-			Bson filter = Filters.eq("nombre", name);
-			database.getCollection("usuarios").deleteOne(filter);
-			client.close();
-		}
-		name = "";
 		driver.manage().deleteAllCookies();
 	}
 

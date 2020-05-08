@@ -143,7 +143,7 @@ module.exports = function (app, swig, gestorBD) {
 
                 gestorBD.insertarUsuario(usuario, mensajeError, function (id, mensajeError) {
                     if (id == null) {
-                        res.redirect("/registrarse" + "?mensaje=" + mensajeError);
+                        res.redirect("/registrarse" + "?mensaje=" + mensajeError + "&tipoMensaje=alert-danger");
                     } else {
                         res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado.");
                     }
@@ -152,7 +152,7 @@ module.exports = function (app, swig, gestorBD) {
                 mensajeError = "Este email ya esta en uso."
                 gestorBD.insertarUsuario(usuario, mensajeError, function (id, mensajeError) {
                     if (id == null) {
-                        res.redirect("/registrarse" + "?mensaje=" + mensajeError);
+                        res.redirect("/registrarse" + "?mensaje=" + mensajeError + "&tipoMensaje=alert-danger");
                     } else {
                         res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado.");
                     }
