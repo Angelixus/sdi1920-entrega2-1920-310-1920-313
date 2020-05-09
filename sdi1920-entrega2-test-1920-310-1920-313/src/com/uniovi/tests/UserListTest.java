@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 //Paquetes JUnit 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -25,7 +24,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import com.uniovi.properties.PropertyLoader;
 //Paquetes con los Page Object
 import com.uniovi.tests.pageobjects.PO_HomeView;
@@ -41,7 +39,6 @@ public class UserListTest {
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "https://localhost:8081";
 
-	private String name;
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -57,15 +54,6 @@ public class UserListTest {
 
 	@After
 	public void tearDown() {
-		if (name != "") {
-			MongoClient client = new MongoClient(
-					new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
-			MongoDatabase database = client.getDatabase("socialnetwork");
-			Bson filter = Filters.eq("nombre", name);
-			database.getCollection("usuarios").deleteOne(filter);
-			client.close();
-		}
-		name = "";
 		driver.manage().deleteAllCookies();
 	}
 

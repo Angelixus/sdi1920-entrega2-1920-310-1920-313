@@ -33,7 +33,7 @@ public class SignUpTest {
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "https://localhost:8081";
 	
-	private String name;
+	private String name = "";
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -49,7 +49,7 @@ public class SignUpTest {
 
 	@After
 	public void tearDown() {
-		if (name != "") {
+		if (!name.equals("")) {
 			MongoClient client = new MongoClient(
 					new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
 			MongoDatabase database = client.getDatabase("socialnetwork");

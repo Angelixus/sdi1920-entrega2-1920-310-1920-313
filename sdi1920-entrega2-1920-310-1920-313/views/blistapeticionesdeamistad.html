@@ -36,7 +36,10 @@
                                 $( "#acceptFriendRequest{{user._id.toString()}}" ).click(function() {
                                     $.get( "/friendRequest/{{user._id.toString()}}/accept", function( data ) {
                                         $("#rowRequest{{user._id.toString()}}").remove();
+                                    }).fail(function() {
+                                        $( "#acceptFriendRequest{{user._id.toString()}}" ).prop('disabled', false);
                                     });
+                                    $( "#acceptFriendRequest{{user._id.toString()}}" ).prop('disabled', true);
                                 });
                                 /*]]>*/
                             </script>

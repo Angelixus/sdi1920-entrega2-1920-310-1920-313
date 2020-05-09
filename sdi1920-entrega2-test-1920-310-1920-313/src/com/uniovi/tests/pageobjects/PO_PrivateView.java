@@ -1,9 +1,13 @@
 package com.uniovi.tests.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import com.uniovi.tests.util.SeleniumUtils;
 
 
 public class PO_PrivateView extends PO_NavView{
@@ -23,6 +27,16 @@ public class PO_PrivateView extends PO_NavView{
 		score.sendKeys(scorep);
 		By boton = By.className("btn");
 		driver.findElement(boton).click();	
+	}
+	
+	public static void sendFriendRequest(WebDriver driver, String xpath) {
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", xpath, getTimeout());
+		elementos.get(0).click();
+	}
+
+	public static void acceptFriendRequest(WebDriver driver, String xpath) {
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", xpath, getTimeout());
+		elementos.get(0).click();		
 	}
 	
 }

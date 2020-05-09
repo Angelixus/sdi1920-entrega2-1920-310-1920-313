@@ -43,7 +43,10 @@
                                                 $.get( "/user/{{user._id.toString()}}/send", function( data ) {
                                                     $("#sendRequestButton{{user._id.toString()}}").remove();
                                                     $("#friendRequestTableDiv{{user._id.toString()}}").append("<div><p>Petición de amistad ya enviada o recibida.</p></div>");
+                                                }).fail(function() {
+                                                    $("#sendRequestButton{{user._id.toString()}}").prop('disabled', false);
                                                 });
+                                                $("#sendRequestButton{{user._id.toString()}}").prop('disabled', true);
                                             });
                                             /*]]>*/
                                         </script>
