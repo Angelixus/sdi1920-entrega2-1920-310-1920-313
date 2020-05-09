@@ -108,6 +108,7 @@ app.set('crypto', crypto);
 require('./routes/rusuarios.js')(app, swig, gestorBD);
 require('./routes/rpeticiones.js')(app, swig, gestorBD);
 require('./routes/ramigos.js')(app, swig, gestorBD);
+require('./routes/rapimensajes.js')(app, gestorBD);
 
 app.get("/home", function(req, res) {
     res.send(swig.renderFile("views/bhome.html", {
