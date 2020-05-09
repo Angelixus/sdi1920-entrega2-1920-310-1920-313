@@ -49,6 +49,27 @@ module.exports = function(app,gestorBD){
             }});
     });
 
+    app.post("/api/mensaje",function(req,res){
+        var mensaje = {
+            emisor :req.session.usuario,
+            destino :req.body.destino,
+            texto :req.body.texto,
+            leido :false
+        }
+
+        // ¿Validar nombre, genero, precio?
+        gestorBD.insertarMensaje(mensaje,function(id){
+            if(id ==null){
+                res.status(500);
+                res.json({error :"se ha producido un error"})
+            } else {
+                res.status(201);
+                res.json({mensaje :"mensaje insertada", _id :id})
+            }
+        });
+    });
+
+
     app.post("/api/autenticar/", function(req, res) {
        let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
            .update(req.body.password).digest('hex');
