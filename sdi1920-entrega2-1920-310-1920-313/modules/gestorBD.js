@@ -5,40 +5,6 @@ module.exports = {
         this.mongo = mongo;
         this.app = app;
     },
-    "insertarCancion" : function (cancion, functionCallback) {
-        let dbname = this.app.get('dbname');
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, client){
-            if(err)
-                functionCallback(null);
-            else {
-                let collection = client.db(dbname).collection('canciones');
-                collection.insert(cancion, function(err, result) {
-                    if(err)
-                        functionCallback(null);
-                    else
-                        functionCallback(result.ops[0]._id);
-                    client.close();
-                });
-            }
-        });
-    },
-    "obtenerCanciones" : function(critero, functionCallback) {
-        let dbname = this.app.get('dbname');
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, client) {
-            if(err)
-                functionCallback(null);
-            else {
-                let collection = client.db(dbname).collection('canciones');
-                collection.find(critero).toArray(function(err, canciones) {
-                    if(err)
-                        functionCallback(null);
-                    else
-                        functionCallback(canciones);
-                    client.close();
-                });
-            }
-        });
-    },
     "insertarUsuario" : function (usuario, mensajeError, functionCallback) {
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
