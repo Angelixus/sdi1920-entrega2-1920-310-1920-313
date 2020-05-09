@@ -93,6 +93,26 @@ module.exports = {
             }
         });
     },
+    "obtenerAmigos" : function(criterio, funcionCallback){
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, client) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = client.db(dbname).collection('usuarios');
+                collection.count(function(err, count){
+                    collection.find(criterio).toArray(function(err, amigos) {
+                            if (err) {
+                                funcionCallback(null);
+                            } else {
+                                funcionCallback(amigos, count);
+                            }
+                            client.close();
+                        });
+                });
+            }
+        });
+    },
     "modificarUsuario" : function(criterio, cancion, functionCallback) {
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
