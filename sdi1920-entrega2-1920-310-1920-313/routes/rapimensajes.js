@@ -52,6 +52,23 @@ module.exports = function (app, gestorBD) {
         });
     });
 
+    app.post("/api/mensajes/sinleer", function (req, res) {
+        let criterio = {
+            "emisor": req.body.amigo,
+            "destino": req.session.usuario,
+            "leido": false
+        }
+        gestorBD.obtenerMensajes(criterio, function (mensajes) {
+            if(mensajes === null) {
+                res.status(500);
+                res.json({error: "se ha producido un error"})
+            } else {
+                res.status(200)
+                res.send({ "sinLeer": mensajes.length })
+            }
+        })
+    })
+
     app.post("/api/mensaje", function (req, res) {
         let nowTime = Date.now();
         var mensaje = {
@@ -63,7 +80,6 @@ module.exports = function (app, gestorBD) {
         }
         var criterio = {email: req.body.destino}
 
-        // ¿Validar nombre, genero, precio?
         gestorBD.obtenerUsuario(criterio, function (usuario) {
             if(usuario == null){
                 res.status(500);

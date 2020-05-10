@@ -8,6 +8,7 @@
             <th><a onclick="ordenar()">Nombre</a></th>
             <th><a onclick="ordenar()">Apellido</a></th>
             <th><a onclick="ordenar()">Email</a></th>
+            <th><span>Mensajes sin leer</span></th>
             <th class="col-md-1"></th>
         </tr>
         </thead>
@@ -20,6 +21,7 @@
     window.history.pushState("", "", "/cliente.html?w=amigos");
 
     var amigos;
+    var amigosActuales;
     function cargarAmigos(){
         $.ajax({
             url: URLbase + "/amigos",
@@ -38,16 +40,42 @@
     }
 
     function actualizarTabla(amigosMostrar){
+        amigosActuales = amigosMostrar;
         $( "#tablaCuerpo").empty(); // Vaciar la tabla
         for(i = 0; i < amigosMostrar.length; i++) {
+            let idSinLeerTd = "sinLeerTd" + amigosMostrar[i]._id
             $( "#tablaCuerpo")
                 .append( "<tr id="+amigosMostrar[i]._id+">"+
                     "<td>"+amigosMostrar[i].nombre+"</td>"+
                     "<td>"+amigosMostrar[i].apellidos+"</td>"+
                     "<td>"+amigosMostrar[i].email+"</td>"+
+                    "<td id=" + idSinLeerTd + "></td>"+
                     "<td><a onclick=widgetChat('"+amigosMostrar[i].email+"')>Chat</a></td>"
                     +"</tr>"
                 );
+        }
+    }
+
+    function actualizarSinLeer() {
+        for(i = 0; i < amigosActuales.length; i++) {
+            let idSinLeerDiv = "sinLeerDiv" + amigosActuales[i]._id;
+            let idSinLeerTd = "sinLeerTd" + amigosActuales[i]._id
+            $.ajax({
+                url: URLbase + "/mensajes/sinleer",
+                type: "POST",
+                data: {
+                    amigo: amigosActuales[i].email
+                },
+                dataType: 'json',
+                headers: { "token": token },
+                success: function(respuesta) {
+                    $('#' + idSinLeerDiv).remove();
+                    $('#' + idSinLeerTd).append('<div id=' + idSinLeerDiv + '><span>' + respuesta.sinLeer + '</span></div>');
+                },
+                error : function(error){
+                    $( "#contenedor-principal").load("widget-login.html");
+                }
+            });
         }
     }
 
@@ -84,5 +112,7 @@
         actualizarTabla(amigos);
         nombreDsc= !nombreDsc; //invertir
     }
+
+    setInterval(actualizarSinLeer, 1000)
 
 </script>
