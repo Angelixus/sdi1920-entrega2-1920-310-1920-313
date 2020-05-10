@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7303546a-8553-4bdf-90f3-fad066d760fb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/widget-chat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/cliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/cliente.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/widget-amigos.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/widget-amigos.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapimensajes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,28 +82,28 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1515" height="122" key="GridCell.Tab.0.bottom" timestamp="1589038298909">
+    <state width="1515" height="122" key="GridCell.Tab.0.bottom" timestamp="1589131024793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="122" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589038298909" />
+    <state width="1515" height="122" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589131024793" />
     <state width="1899" height="232" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588971629972" />
     <state width="1899" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849425" />
-    <state width="1515" height="122" key="GridCell.Tab.0.center" timestamp="1589038298908">
+    <state width="1515" height="122" key="GridCell.Tab.0.center" timestamp="1589131024793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="122" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589038298908" />
+    <state width="1515" height="122" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589131024793" />
     <state width="1899" height="232" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588971629971" />
     <state width="1899" height="278" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849424" />
-    <state width="1515" height="122" key="GridCell.Tab.0.left" timestamp="1589038298908">
+    <state width="1515" height="122" key="GridCell.Tab.0.left" timestamp="1589131024793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="122" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589038298908" />
+    <state width="1515" height="122" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589131024793" />
     <state width="1899" height="232" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588971629971" />
     <state width="1899" height="278" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849424" />
-    <state width="1515" height="122" key="GridCell.Tab.0.right" timestamp="1589038298909">
+    <state width="1515" height="122" key="GridCell.Tab.0.right" timestamp="1589131024793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="122" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589038298909" />
+    <state width="1515" height="122" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589131024793" />
     <state width="1899" height="232" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588971629971" />
     <state width="1899" height="278" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849425" />
     <state width="1515" height="152" key="GridCell.Tab.1.bottom" timestamp="1589034773127">
@@ -171,9 +166,10 @@
     </state>
     <state width="1515" height="152" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1589034773128" />
     <state width="1899" height="256" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588959448350" />
-    <state x="607" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588952413510">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="486" y="55" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1589130796076">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="486" y="55" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1589130796076" />
     <state x="607" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1588952413510" />
     <state x="768" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588956448201">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -200,11 +196,6 @@
           <url>file://$PROJECT_DIR$/routes/ramigos.js</url>
           <line>25</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/rapimensajes.js</url>
-          <line>83</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
