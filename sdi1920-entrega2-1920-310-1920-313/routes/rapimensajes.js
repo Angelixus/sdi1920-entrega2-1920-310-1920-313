@@ -52,34 +52,33 @@ module.exports = function(app,gestorBD){
     app.post("/api/mensaje",function(req,res){
         var mensaje = {
             emisor :req.session.usuario,
-            destino :req.body.destino,
+            destino :req.body.destino.email,
             texto :req.body.texto,
             leido :false
         }
-        var criterio = {email: req.body.destino}
+        var criterio = {
+            email: req.session.usuario.friend_ids
+        }
 
-        // ¿Validar nombre, genero, precio?
-        gestorBD.obtenerUsuario(criterio, function (usuario) {
-            if(usuario == null){
+        gestorBD.obtenerAmigos(criterio, function(amigos){
+            if(amigos==null){
                 res.status(500);
-                res.json({error: "se ha producido un error"})
-            }else{
-                gestorBD.obtenerAmigos({email: req.session.usuario}, function(amigos){
-                   if(amigos.length == 0 || amigos == null){
-                       res.status(500);
-                       res.json({error: "se ha producido un error"})
-                   } else{
-                       gestorBD.insertarMensaje(mensaje,function(id){
-                           if(id ==null){
-                               res.status(500);
-                               res.json({error :"Error: No eres amigo de este usuario"})
-                           } else {
-                               res.status(201);
-                               res.json({mensaje :"mensaje insertada", _id :id})
-                           }
-                       });
-                   }
-                });
+                res.json({error :"Error: Ha ocurrido un error"})
+            } else {
+                if(!amigos.contains(req.body.destino._id)){
+                    res.status(500);
+                    res.json({error :"Error: No eres amigo de este usuario"})
+                }else{
+                    gestorBD.insertarMensaje(mensaje,function(id){
+                        if(id ==null){
+                            res.status(500);
+                            res.json({error :"Error: Ha ocurrido un error"})
+                        } else {
+                            res.status(201);
+                            res.json({mensaje :"mensaje insertado", _id :id})
+                        }
+                    });
+                }
             }
         });
     });
