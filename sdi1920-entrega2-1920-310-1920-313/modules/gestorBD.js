@@ -113,24 +113,6 @@ module.exports = {
             }
         });
     },
-    "modificarUsuario" : function(criterio, cancion, functionCallback) {
-        let dbname = this.app.get('dbname');
-        this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
-            if(err)
-                functionCallback(null);
-            else {
-                let collection = client.db(dbname).collection('usuarios');
-                collection.update(criterio, {$set : cancion}, function (err, result) {
-                    if(err)
-                        functionCallback(null);
-                    else
-                        functionCallback(result);
-                    client.close();
-                });
-            }
-        });
-    },
-
     "insertarMensaje" : function (mensaje, functionCallback) {
         let dbname = this.app.get('dbname');
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
@@ -313,6 +295,23 @@ module.exports = {
                         functionCallback(null);
                     else
                         functionCallback(mensajes)
+                    client.close();
+                });
+            }
+        });
+    },
+    "obtenerMensaje" : function (criterio, functionCallback) {
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
+            if(err)
+                functionCallback(null);
+            else {
+                let collection = client.db(dbname).collection('mensajes');
+                collection.find(criterio).toArray(function (err, mensajes) {
+                    if(err)
+                        functionCallback(null);
+                    else
+                        functionCallback(mensajes[0])
                     client.close();
                 });
             }

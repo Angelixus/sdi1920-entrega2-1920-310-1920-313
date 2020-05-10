@@ -90,7 +90,7 @@ module.exports = function (app, swig, gestorBD) {
                 if (usuarios === null) {
                     res.redirect("/error");
                 } else {
-                    total = usuarios.length
+                    total = peticiones.length
                     let ultimaPg = total / 5;
                     if (total % 5 > 0) {
                         ultimaPg = ultimaPg + 1;
@@ -138,25 +138,37 @@ module.exports = function (app, swig, gestorBD) {
                         "friend_ids": usuario.friend_ids,
                         "friendRequest_ids": usuario.friendRequest_ids
                     }
-                    gestorBD.modificarUsuario({"_id": usuario._id}, usuarioSession, function (result) {
-                        gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.params.id)}, function (usuarioParam) {
-                            usuarioParam.friend_ids.push(gestorBD.mongo.ObjectID(req.session.usuarioId));
-                            let usuarioParamNew = {
-                                "_id": usuarioParam._id,
-                                "nombre": usuarioParam.nombre,
-                                "apellidos": usuarioParam.apellidos,
-                                "email": usuarioParam.email,
-                                "password": usuarioParam.password,
-                                "friend_ids": usuarioParam.friend_ids,
-                                "friendRequest_ids": usuarioParam.friendRequest_ids
-                            }
-                            gestorBD.modificarUsuario({"_id": usuarioParam._id}, usuarioParamNew, function (result) {
-                                res.redirect("/peticiones")
+                    gestorBD.updateUsuario({"_id": usuario._id}, {$set : usuarioSession}, function (result) {
+                        if(result === null || result === false) {
+                            res.redirect('/error');
+                        } else {
+                            gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.params.id)}, function (usuarioParam) {
+                                if(usuarioParam === null) {
+                                    res.redirect('/error');
+                                } else {
+                                    usuarioParam.friend_ids.push(gestorBD.mongo.ObjectID(req.session.usuarioId));
+                                    let usuarioParamNew = {
+                                        "_id": usuarioParam._id,
+                                        "nombre": usuarioParam.nombre,
+                                        "apellidos": usuarioParam.apellidos,
+                                        "email": usuarioParam.email,
+                                        "password": usuarioParam.password,
+                                        "friend_ids": usuarioParam.friend_ids,
+                                        "friendRequest_ids": usuarioParam.friendRequest_ids
+                                    }
+                                    gestorBD.updateUsuario({"_id": usuarioParam._id}, {$set : usuarioParamNew}, function (result) {
+                                        if(result === false) {
+                                            res.redirect('/error');
+                                        } else {
+                                            res.redirect("/peticiones");
+                                        }
+                                    });
+                                }
                             });
-                        });
+                        }
                     });
                 } else {
-                    res.redirect("/peticiones" + "?mensaje=No se puede aceptar una peticion de amistad que no existe    ");
+                    res.redirect("/peticiones" + "?mensaje=No se puede aceptar una peticion de amistad que no existe");
                 }
             }
         });

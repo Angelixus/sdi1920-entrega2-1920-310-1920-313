@@ -33,6 +33,8 @@
                     console.log(respuesta.token); // <-- Prueba
                     token = respuesta.token;
                     Cookies.set('token', respuesta.token);
+                    emisor = respuesta.emisor
+                    Cookies.set('emisor', respuesta.emisor);
                     $("#contenedor-principal").load("widget-amigos.html");
                 },
                 error : function(error){

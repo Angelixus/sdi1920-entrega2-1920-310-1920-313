@@ -1,22 +1,19 @@
-<div id="widget-agregar" >
-    <div class="form-group">
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="agregar-texto"
-                   placeholder="Mensaje..." id="agregar-texto" />
-        </div>
-    </div>
-    <div class="col-sm-offset-2 col-sm-10">
-        <button type="button" class="btn btn-primary" id="boton-agregar"
+<div id="widget-chat" >
+
+    <div id="inputChatHolder" class="input-group">
+        <input type="text" class="form-control" name="agregar-texto"
+               placeholder="Mensaje..." id="agregar-texto" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" id="boton-agregar"
                 onclick="enviarMensaje()">Enviar</button>
+        </span>
     </div>
 </div>
 
 <script>
-    $('#widget-agregar').prepend('<h2>Estas hablando con ' + destino + '</h2>');
+    $('#widget-chat').prepend('<h2>Estas hablando con ' + destino + '</h2>');
 
-    function obtenerMensajes() {
-        
-    }
+    var messages = [];
     function enviarMensaje() {
         $.ajax({
             url: URLbase + "/mensaje",
@@ -28,8 +25,7 @@
             dataType: 'json',
             headers: { "token": token },
             success: function(respuesta) {
-                console.log(respuesta); // <-- Prueba
-                $( "#contenedor-principal" ).load( "widget-amigos.html");
+
 
             },
             error : function (error){
@@ -37,4 +33,34 @@
             }
         });
     }
+
+    function updateChat() {
+        $.ajax({
+            url: URLbase + "/mensajes",
+            type: "POST",
+            data: {
+                requestUser: emisor,
+                requestOtherUser: destino,
+            },
+            dataType: "json",
+            headers: {"token": token},
+            success: function (respuesta) {
+                $('#chat-messages').remove();
+                messages = respuesta.mensajes
+                $('#inputChatHolder').before('<div id="chat-messages"></div>');
+                for(let messagesIndex in respuesta.mensajes) {
+                    let emisorOfMessage = respuesta.mensajes[messagesIndex].emisor;
+                    if(emisorOfMessage === destino) {
+                        $('#chat-messages').append('<div class="chat-message-container"><div class="chat-message-destino"><span class="chat-message-destino-message">' + respuesta.mensajes[messagesIndex].texto + '</span></div></div>');
+                    } else {
+                        $('#chat-messages').append('<div class="chat-message-container"><div class="chat-message-emisor"><span class="chat-message-emisor-message">' + respuesta.mensajes[messagesIndex].texto + '</span></div></div>');
+                    }
+                }
+            },
+            error: function (error) {
+                $( "#contenedor-principal" ).load("widget-login.html");
+            }
+        });
+    }
+    setInterval(updateChat, 1000);
 </script>

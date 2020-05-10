@@ -34,12 +34,11 @@ module.exports = function (app, swig, gestorBD) {
             let pg = parseInt(req.query.pg);
             if (req.query.pg === undefined)
                 pg = 1;
-
             gestorBD.obtenerUsuariosPg(allIdsCriterio, pg, function (usuarios, total) {
                 if (usuarios === null) {
                     res.redirect("/error");
                 } else {
-                    total = usuarios.length
+                    total = user.friend_ids.length;
                     let ultimaPg = total / 5;
                     if (total % 5 > 0) {
                         ultimaPg = ultimaPg + 1;
