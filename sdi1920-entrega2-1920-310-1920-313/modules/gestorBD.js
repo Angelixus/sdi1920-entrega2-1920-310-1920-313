@@ -301,4 +301,21 @@ module.exports = {
             }
         });
     },
+    "obtenerMensajes" : function (criterio, functionCallback) {
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
+            if(err)
+                functionCallback(null);
+            else {
+                let collection = client.db(dbname).collection('mensajes');
+                collection.find(criterio).toArray(function (err, mensajes) {
+                    if(err)
+                        functionCallback(null);
+                    else
+                        functionCallback(mensajes)
+                    client.close();
+                });
+            }
+        });
+    }
 };

@@ -1,5 +1,4 @@
 <div id="widget-agregar" >
-    <h2>Estas hablando con </h2>
     <div class="form-group">
         <div class="col-sm-10">
             <input type="text" class="form-control" name="agregar-texto"
@@ -13,6 +12,11 @@
 </div>
 
 <script>
+    $('#widget-agregar').prepend('<h2>Estas hablando con ' + destino + '</h2>');
+
+    function obtenerMensajes() {
+        
+    }
     function enviarMensaje() {
         $.ajax({
             url: URLbase + "/mensaje",

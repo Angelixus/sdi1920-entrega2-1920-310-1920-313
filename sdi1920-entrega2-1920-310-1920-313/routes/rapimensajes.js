@@ -50,14 +50,17 @@ module.exports = function(app,gestorBD){
     });
 
     app.post("/api/mensaje",function(req,res){
+        let nowTime = Date.now();
         var mensaje = {
             emisor :req.session.usuario,
             destino :req.body.destino,
             texto :req.body.texto,
-            leido :false
+            leido :false,
+            fecha_creacion: nowTime
         }
 
-        // ¿Validar nombre, genero, precio?
+        console.log(mensaje)
+
         gestorBD.insertarMensaje(mensaje,function(id){
             if(id ==null){
                 res.status(500);
@@ -98,4 +101,28 @@ module.exports = function(app,gestorBD){
            }
        });
     });
+
+    app.post('/api/mensajes', function(req, res) {
+        let criterio = {
+            $or: [
+                {
+                    "emisor": req.body.requestUser,
+                    "receptor": req.body.requestOtherUser
+                },
+                {
+                    "emisor": req.body.requestOtherUser,
+                    "receptor": req.body.requestUser
+                }
+            ]
+        }
+        gestorBD.obtenerMensajes(criterio, function(mensajes) {
+            if(mensajes === null) {
+                res.status(500);
+                res.json({error :"Se ha producido un error y no se pueden obtener los mensajes"});
+            } else {
+                res.status(200);
+                res.json({"mensajes" : mensajes});
+            }
+        });
+    })
 }
