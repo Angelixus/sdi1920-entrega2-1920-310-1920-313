@@ -316,5 +316,21 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    "updateMessage": function (filter, updateOperation, functionCallback) {
+        let dbname = this.app.get('dbname');
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, client) {
+            if(err)
+                functionCallback(null);
+            else {
+                let collection = client.db(dbname).collection('mensajes');
+                collection.updateMany(filter, updateOperation, function (err, result) {
+                    if(err)
+                        functionCallback(false);
+                    else
+                        functionCallback(true);
+                })
+            }
+        });
+    },
 };

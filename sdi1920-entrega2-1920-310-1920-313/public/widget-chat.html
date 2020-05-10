@@ -1,11 +1,11 @@
-<div id="widget-chat" >
+<div id="widget-chat">
 
     <div id="inputChatHolder" class="input-group">
         <input type="text" class="form-control" name="agregar-texto"
-               placeholder="Mensaje..." id="agregar-texto" />
+               placeholder="Mensaje..." id="agregar-texto"/>
         <span class="input-group-btn">
             <button type="button" class="btn btn-primary" id="boton-agregar"
-                onclick="enviarMensaje()">Enviar</button>
+                    onclick="enviarMensaje()">Enviar</button>
         </span>
     </div>
 </div>
@@ -14,22 +14,22 @@
     $('#widget-chat').prepend('<h2>Estas hablando con ' + destino + '</h2>');
 
     var messages = [];
+
     function enviarMensaje() {
         $.ajax({
             url: URLbase + "/mensaje",
             type: "POST",
             data: {
                 destino: destino,
-                texto : $("#agregar-texto").val(),
+                texto: $("#agregar-texto").val(),
             },
             dataType: 'json',
-            headers: { "token": token },
-            success: function(respuesta) {
-
-
+            headers: {"token": token},
+            success: function (respuesta) {
+                $('#agregar-texto').val("")
             },
-            error : function (error){
-                $( "#contenedor-principal" ).load("widget-login.html");
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
             }
         });
     }
@@ -48,19 +48,40 @@
                 $('#chat-messages').remove();
                 messages = respuesta.mensajes
                 $('#inputChatHolder').before('<div id="chat-messages"></div>');
-                for(let messagesIndex in respuesta.mensajes) {
+                for (let messagesIndex in respuesta.mensajes) {
                     let emisorOfMessage = respuesta.mensajes[messagesIndex].emisor;
-                    if(emisorOfMessage === destino) {
-                        $('#chat-messages').append('<div class="chat-message-container"><div class="chat-message-destino"><span class="chat-message-destino-message">' + respuesta.mensajes[messagesIndex].texto + '</span></div></div>');
+                    if (emisorOfMessage === destino) {
+                        $('#chat-messages').append('<div class="chat-message-container"><div id="message-destino' + respuesta.mensajes[messagesIndex]._id + '" class="chat-message-destino"><span class="chat-message-destino-message">' + respuesta.mensajes[messagesIndex].texto + '</span></div></div>');
+                        let divId = "message-destino" + respuesta.mensajes[messagesIndex]._id
+                        if (respuesta.mensajes[messagesIndex].leido == false) {
+                            $.ajax({
+                                url: URLbase + "/mensaje/leido",
+                                type: "POST",
+                                data: {
+                                    messageId: respuesta.mensajes[messagesIndex]._id
+                                },
+                                dataType: "json",
+                                headers: {"token": token},
+                                success: function (respuesta) {
+                                    $('#' + divId).append('<span class="chat-message-destino-message-read">Leido</span>')
+                                },
+                                error: function (error) {
+
+                                }
+                            })
+                        } else {
+                            $('#' + divId).append('<span class="chat-message-destino-message-read">Leido</span>')
+                        }
                     } else {
                         $('#chat-messages').append('<div class="chat-message-container"><div class="chat-message-emisor"><span class="chat-message-emisor-message">' + respuesta.mensajes[messagesIndex].texto + '</span></div></div>');
                     }
                 }
             },
             error: function (error) {
-                $( "#contenedor-principal" ).load("widget-login.html");
+                $("#contenedor-principal").load("widget-login.html");
             }
         });
     }
+
     setInterval(updateChat, 1000);
 </script>

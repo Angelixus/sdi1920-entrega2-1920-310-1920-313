@@ -34,3 +34,11 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+.chat-message-destino-message-read {
+    color: white;
+    float: right;
+    margin: 5px 10px;
+    display: inline-block;
+    vertical-align: middle;
+}

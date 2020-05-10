@@ -74,7 +74,7 @@ module.exports = function (app, gestorBD) {
     });
 
     app.post('/api/mensaje/leido', function (req, res) {
-        gestorBD.obtenerMensaje({"_id": req.body.messageId}, function(mensaje) {
+        gestorBD.obtenerMensaje({"_id": gestorBD.mongo.ObjectID(req.body.messageId)}, function(mensaje) {
             if(mensaje === null) {
                 res.status(500);
                 res.json({error: "se ha producido un error"})
@@ -88,8 +88,8 @@ module.exports = function (app, gestorBD) {
                         "leido": true,
                         "fecha_creacion": mensaje.fecha_creacion
                     }
-                    gestorBD.updateMessage({"_id": mensaje._id}, {$set: newMessage}, function(res) {
-                        if(res === false) {
+                    gestorBD.updateMessage({"_id": mensaje._id}, {$set: newMessage}, function(result) {
+                        if(result === false) {
                             res.status(500);
                             res.json({error: "se ha producido un error"})
                         } else {
