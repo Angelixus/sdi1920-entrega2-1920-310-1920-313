@@ -61,14 +61,30 @@ module.exports = function (app, gestorBD) {
             leido: false,
             fecha_creacion: nowTime
         }
+        var criterio = {email: req.body.destino}
 
-        gestorBD.insertarMensaje(mensaje, function (id) {
-            if (id == null) {
+        // ¿Validar nombre, genero, precio?
+        gestorBD.obtenerUsuario(criterio, function (usuario) {
+            if(usuario == null){
                 res.status(500);
                 res.json({error: "se ha producido un error"})
-            } else {
-                res.status(201);
-                res.json({mensaje: "mensaje insertada", _id: id})
+            }else{
+                gestorBD.obtenerAmigos({email: req.session.usuario}, function(amigos){
+                   if(amigos.length == 0 || amigos == null){
+                       res.status(500);
+                       res.json({error: "se ha producido un error"})
+                   } else{
+                       gestorBD.insertarMensaje(mensaje,function(id){
+                           if(id ==null){
+                               res.status(500);
+                               res.json({error :"Error: No eres amigo de este usuario"})
+                           } else {
+                               res.status(201);
+                               res.json({mensaje :"mensaje insertada", _id :id})
+                           }
+                       });
+                   }
+                });
             }
         });
     });
