@@ -40,7 +40,6 @@
                 actualizarTabla(amigos);
             },
             error : function(error){
-                console.log(error)
                 $( "#contenedor-principal").load("widget-login.html");
                 if(intervalAmigos)
                     clearInterval(intervalAmigos)
@@ -55,6 +54,9 @@
     }
 
     function actualizarTablaPorMensajeYActualizarMensajes(amigosMostrar, id, sinLeer) {
+        $( "#tablaCuerpo").empty();
+        $("#tablaCuerpo").append("<td><p id='loading-text'>Loading...</p></td>")
+
         let requests = [];
         let sortedEmails = [];
         for(i = 0; i < amigosMostrar.length; i++) {
@@ -113,6 +115,7 @@
             });
 
             $( "#tablaCuerpo").empty();
+
             for(i = 0; i < amigosMostrar.length; i++) {
                 let idSinLeerTd = "sinLeerTd" + amigosMostrar[i]._id
                 $( "#tablaCuerpo")
