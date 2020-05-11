@@ -63,7 +63,11 @@
   }
 
   function widgetAmigos(){
-    $( "#contenedor-principal").load( "widget-amigos.html");
+    if(Cookies.get('token') != null) {
+      $( "#contenedor-principal").load( "widget-amigos.html");
+    } else {
+      window.history.pushState("", "", "/cliente.html?w=login");
+    }
   }
 
 </script>

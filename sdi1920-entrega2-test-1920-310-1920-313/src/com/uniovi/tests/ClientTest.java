@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -73,17 +72,6 @@ public class ClientTest {
 
 	@AfterClass
 	static public void end() {
-		MongoClient client = new MongoClient(
-				new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
-		MongoDatabase database = client.getDatabase("socialnetwork");
-		Bson filterEmailA = Filters.eq("email", "Dick@Wizard.com");
-		Bson filterEmailB = Filters.eq("email", "Borgar@gmail.com");
-
-		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.append("$set", new BasicDBObject().append("friend_ids", new ObjectId[0]));
-		database.getCollection("usuarios").updateOne(filterEmailA, updateQuery);
-		database.getCollection("usuarios").updateOne(filterEmailB, updateQuery);
-		client.close();
 		driver.quit();
 	}
 
@@ -176,11 +164,11 @@ public class ClientTest {
 		List<WebElement> input = PO_PrivateView.checkElementCustomTimeout(driver, "id", "filtro-nombre", 8);
 		assertTrue(input.size() == 1);
 		input.get(0).click();
-		input.get(0).sendKeys("Merlin");
+		input.get(0).sendKeys("Silva");
 
-		PO_PrivateView.checkElementCustomTimeout(driver, "text", "Merlin", 8);
-		PO_PrivateView.checkElementCustomTimeout(driver, "text", "Avalon", 8);
-		PO_PrivateView.checkElementCustomTimeout(driver, "text", "Dick@Wizard.com", 8);
+		PO_PrivateView.checkElementCustomTimeout(driver, "text", "Silva", 8);
+		PO_PrivateView.checkElementCustomTimeout(driver, "text", "Bosque", 8);
+		PO_PrivateView.checkElementCustomTimeout(driver, "text", "Equilibrio@Loca.com", 8);
 
 		Boolean shouldBeTrue = PO_PrivateView.checkElementDoesNotExistCustomTimeout(driver,
 				"//*[contains(text(),'Monarch@gmail.com')]", 8);
@@ -455,9 +443,24 @@ public class ClientTest {
 		
 		PO_PrivateView.checkElementCustomTimeout(driver, "text", uuid, 4);
 		
+		driver.manage().deleteAllCookies();
 
-		driver.navigate().refresh();
+		driver.navigate().to(URL);
 		
+		button = PO_LoginView.checkElement(driver, "id", "boton-login");
+
+		email = driver.findElement(By.xpath("/html/body/div/div/div[1]/div/input"));
+		email.clear();
+		email.click();
+		email.sendKeys("GOHWinner@gmail.com");
+		password = driver.findElement(By.xpath("/html/body/div/div/div[2]/div/input"));
+		password.clear();
+		password.click();
+		password.sendKeys("123456");
+
+		assertTrue(button.size() == 1);
+		button.get(0).click();
+
 		userEmailElement = PO_PrivateView.checkElementCustomTimeout(driver, "free", "//tbody/tr[1]//td[3]", 8);
 		assertTrue(userEmailElement.size() == 1);
 		String userEmailNow = userEmailElement.get(0).getText();

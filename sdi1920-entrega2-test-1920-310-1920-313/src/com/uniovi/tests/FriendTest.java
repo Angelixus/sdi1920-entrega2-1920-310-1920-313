@@ -63,10 +63,15 @@ public class FriendTest {
 		Bson filterEmailA = Filters.eq("email", "Dick@Wizard.com");
 		Bson filterEmailB = Filters.eq("email", "Borgar@gmail.com");
 
-		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.append("$set", new BasicDBObject().append("friend_ids", new ObjectId[0]));
-		database.getCollection("usuarios").updateOne(filterEmailA, updateQuery);
-		database.getCollection("usuarios").updateOne(filterEmailB, updateQuery);
+		BasicDBObject updateQueryA = new BasicDBObject();
+		updateQueryA.append("$set", new BasicDBObject().append("friend_ids", new ObjectId[0]));
+		BasicDBObject updateQueryB = new BasicDBObject();
+		updateQueryB.append("$set", new BasicDBObject().append("friendRequest_ids", new ObjectId[0]));
+		
+		database.getCollection("usuarios").updateOne(filterEmailA, updateQueryA);
+		database.getCollection("usuarios").updateOne(filterEmailB, updateQueryA);
+		database.getCollection("usuarios").updateOne(filterEmailA, updateQueryB);
+		database.getCollection("usuarios").updateOne(filterEmailB, updateQueryB);
 		client.close();
 		driver.quit();
 	}
@@ -79,7 +84,7 @@ public class FriendTest {
 
 		PO_NavView.checkElement(driver, "free", "/html/body/div/div/div[2]/ul/li[3]/a").get(0).click();
 		PO_PrivateView.sendFriendRequest(driver, "//*[@id=\"sendRequestButton5eb4654de75a5a53e89ad072\"]");
-
+		
 		PO_HomeView.clickOption(driver, "desconectarse", "class", "btn btn-primary");
 
 		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
