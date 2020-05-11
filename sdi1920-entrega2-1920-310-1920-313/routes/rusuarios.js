@@ -1,4 +1,5 @@
-module.exports = function (app, swig, gestorBD) {
+module.exports = function (app, swig, gestorBD, logger) {
+
     app.get("/usuarios", function (req, res) {
         let searchText = req.query.searchText;
         if(searchText === undefined)
@@ -88,6 +89,7 @@ module.exports = function (app, swig, gestorBD) {
                         }
                         usuarioFromDB["didReceiveRequestFromOther"] = method["didReceiveRequestFromOther"]
 
+                        logger.info(req.session.usuario +": Se ha mostrado la lista de usuarios");
                         res.send(swig.renderFile("views/busuarios.html", {
                             "usuarioSession": req.session.usuario,
                             "users": usuarios,
@@ -96,6 +98,7 @@ module.exports = function (app, swig, gestorBD) {
                             "usuarioSessionObj": usuarioFromDB
                         }));
                     } else {
+                        logger.error(req.session.usuario +": Se ha producido un error al listar los usuarios");
                         res.redirect("/error");
                     }
                 });
@@ -143,8 +146,10 @@ module.exports = function (app, swig, gestorBD) {
 
                 gestorBD.insertarUsuario(usuario, mensajeError, function (id, mensajeError) {
                     if (id == null) {
+                        logger.info("Ha habido un intento de registro fallido");
                         res.redirect("/registrarse" + "?mensaje=" + mensajeError + "&tipoMensaje=alert-danger");
                     } else {
+                        logger.info("Nuevo usuario " + usuario.email + ", registrado");
                         res.redirect("/identificarse" + "?mensaje=Nuevo usuario registrado.");
                     }
                 });
@@ -181,6 +186,8 @@ module.exports = function (app, swig, gestorBD) {
                 if(mensajeError === "")
                     mensajeError = "El email introducido no existe";
 
+                logger.info("Ha habido un intento de conexion fallido");
+
                 res.redirect("/identificarse" + "?mensaje=" + mensajeError + "&tipoMensaje=alert-danger ");
             }
             else if(seguro !== usuarios[0].password) {
@@ -188,19 +195,25 @@ module.exports = function (app, swig, gestorBD) {
                 if(req.body.password ==="")
                     mensajeError = "El campo contraseña no puede estar vacio"
 
+                logger.info("Ha habido un intento de conexion fallido");
+
                 res.redirect("/identificarse" + "?mensaje="+ mensajeError + "&tipoMensaje=alert-danger ");
             } else {
-
                 req.session.usuario = usuarios[0].email;
                 req.session.usuarioId = usuarios[0]._id;
+                logger.info("El usuario " + req.session.usuario + " se ha conectado");
                 res.redirect("/usuarios");
             }
         });
     });
 
     app.get('/desconectarse', function (req, res) {
+        logger.level="info";
+        logger.info("El usuario " + req.session.usuario + " se ha desconectado");
+
         req.session.usuario = null;
         req.session.usuarioId = null;
+
         res.redirect("/identificarse");
     });
 };

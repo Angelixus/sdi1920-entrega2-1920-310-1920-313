@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83e1f9f4-8072-4c3d-9fbe-1307eea27a61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/ramigos.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/ramigos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rapimensajes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rpeticiones.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rpeticiones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rusuarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rusuarios.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +34,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SvnConfiguration">
@@ -46,11 +49,12 @@
       <updated>1588670336049</updated>
       <workItem from="1588670338110" duration="53000" />
       <workItem from="1588673454274" duration="375000" />
+      <workItem from="1589198909490" duration="4603000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1588673828490">

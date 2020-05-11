@@ -20,6 +20,9 @@ app.set('jwt',jwt);
 let fs = require('fs');
 let https = require('https');
 
+var log4js = require('log4js');
+let logger = log4js.getLogger();
+logger.level = "all";
 let expressSession = require('express-session');
 app.use(expressSession({
     "secret" : 'solo_leveling',
@@ -105,10 +108,10 @@ app.set('db', 'mongodb://admin:solo_leveling@socialnetwork-shard-00-00-iaytk.mon
 app.set('clave', 'solo_leveling');
 app.set('crypto', crypto);
 
-require('./routes/rusuarios.js')(app, swig, gestorBD);
-require('./routes/rpeticiones.js')(app, swig, gestorBD);
+require('./routes/rusuarios.js')(app, swig, gestorBD, logger);
+require('./routes/rpeticiones.js')(app, swig, gestorBD, logger);
 require('./routes/ramigos.js')(app, swig, gestorBD);
-require('./routes/rapimensajes.js')(app, gestorBD);
+require('./routes/rapimensajes.js')(app, gestorBD, logger);
 
 app.get("/home", function(req, res) {
     res.send(swig.renderFile("views/bhome.html", {

@@ -1,4 +1,4 @@
-module.exports = function (app, swig, gestorBD) {
+module.exports = function (app, swig, gestorBD, logger) {
     app.get('/amigos', function (req, res) {
         let criterio = {
             "_id": gestorBD.mongo.ObjectID(req.session.usuarioId),
@@ -36,6 +36,7 @@ module.exports = function (app, swig, gestorBD) {
                 pg = 1;
             gestorBD.obtenerUsuariosPg(allIdsCriterio, pg, function (usuarios, total) {
                 if (usuarios === null) {
+                    logger.error(req.session.usuario +": Se ha producido un error al listar los amigos");
                     res.redirect("/error");
                 } else {
                     total = user.friend_ids.length;
@@ -49,6 +50,7 @@ module.exports = function (app, swig, gestorBD) {
                             paginas.push(i);
                         }
                     }
+                    logger.info(req.session.usuario +": Se ha mostrado la lista de amigos");
                     res.send(swig.renderFile("views/bamigos.html", {
                         "usuarioSession": req.session.usuario,
                         "users": usuarios,

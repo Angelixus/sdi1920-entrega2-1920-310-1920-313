@@ -1,11 +1,13 @@
-module.exports = function (app, swig, gestorBD) {
+module.exports = function (app, swig, gestorBD, logger) {
     app.get("/user/:id/send", function (req, res) {
         gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.params.id)}, function (usuarioParametro) {
             gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.session.usuarioId)}, function (usuarioSession) {
                 if (usuarioParametro === null) {
+                    logger.error(req.session.usuario +": Se ha producido un error al mandar la peticion de amistad");
                     res.redirect("/error");
                 } else {
                     if (req.session.usuarioId === req.params.id) {
+                        logger.error(req.session.usuario +": Se ha producido un error al mandar la peticion de amistad");
                         res.redirect("/usuarios" + "?mensaje=No puedes enviar una solicitud de amistad a ti mismo");
                         return;
                     }
@@ -35,15 +37,20 @@ module.exports = function (app, swig, gestorBD) {
                         let filter = {"_id": gestorBD.mongo.ObjectID(req.params.id)}
                         let updateOperation = {$push: {friendRequest_ids: gestorBD.mongo.ObjectID(req.session.usuarioId)}}
                         gestorBD.updateUsuario(filter, updateOperation, function (success) {
-                            if (!success)
+                            if (!success) {
+                                logger.error(req.session.usuario +": Se ha producido un error al mandar la peticion de amistad");
                                 res.redirect("/usuarios" + "?mensaje=No se pudo enviar la peticion de amistad");
-                            else
+                            }else {
+                                logger.info(req.session.usuario +": Ha enviado una peticion de amistad");
                                 res.redirect("/usuarios");
+                            }
                         })
                     } else {
                         if (sentFriendRequest) {
+                            logger.error(req.session.usuario +": Se ha producido un error al enviar la peticion de amistad");
                             res.redirect("/usuarios" + "?mensaje=Ya se ha enviado o recibido una petición de amistad a este usuario");
                         } else if (areAlreadyFriends) {
+                            logger.error(req.session.usuario +": Se ha producido un error al enviar la peticion de amistad");
                             res.redirect("/usuarios" + "?mensaje=Ya es amigo de este usuario");
                         }
                     }
@@ -113,9 +120,10 @@ module.exports = function (app, swig, gestorBD) {
     });
     app.get('/friendRequest/:id/accept', function (req, res) {
         gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.session.usuarioId)}, function (usuario) {
-            if (usuario === null)
+            if (usuario === null) {
+                logger.error(req.session.usuario +": Se ha producido un error al aceptar la peticion de amistad");
                 res.redirect("/error");
-            else {
+            } else {
                 let hasFriendRequestId = false;
                 let indexOfFriend = 0;
                 for (let userIdIndex in usuario.friendRequest_ids) {
@@ -140,6 +148,7 @@ module.exports = function (app, swig, gestorBD) {
                     }
                     gestorBD.updateUsuario({"_id": usuario._id}, {$set : usuarioSession}, function (result) {
                         if(result === null || result === false) {
+                            logger.error(req.session.usuario +": Se ha producido un error al aceptar la peticion de amistad");
                             res.redirect('/error');
                         } else {
                             gestorBD.obtenerUsuario({"_id": gestorBD.mongo.ObjectID(req.params.id)}, function (usuarioParam) {
@@ -158,8 +167,10 @@ module.exports = function (app, swig, gestorBD) {
                                     }
                                     gestorBD.updateUsuario({"_id": usuarioParam._id}, {$set : usuarioParamNew}, function (result) {
                                         if(result === false) {
+                                            logger.error(req.session.usuario +": Se ha producido un error al aceptar la peticion de amistad");
                                             res.redirect('/error');
                                         } else {
+                                            logger.info(req.session.usuario +": Ha aceptado una peticion de amistad");
                                             res.redirect("/peticiones");
                                         }
                                     });
@@ -168,6 +179,7 @@ module.exports = function (app, swig, gestorBD) {
                         }
                     });
                 } else {
+                    logger.error(req.session.usuario +": Se ha producido un error al aceptar la peticion de amistad");
                     res.redirect("/peticiones" + "?mensaje=No se puede aceptar una peticion de amistad que no existe");
                 }
             }
