@@ -4,9 +4,10 @@
     <list default="true" id="83e1f9f4-8072-4c3d-9fbe-1307eea27a61" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/ramigos.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/ramigos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rapimensajes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rpeticiones.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/routes/rpeticiones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/modules/gestorBD.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/views/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/views/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/views/blistapeticionesdeamistad.html" beforeDir="false" afterPath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/views/blistapeticionesdeamistad.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi1920-entrega2-1920-310-1920-313/views/test.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,21 +71,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588673828490" />
-    <state width="1515" height="206" key="GridCell.Tab.0.bottom" timestamp="1589204827015">
+    <state width="1515" height="206" key="GridCell.Tab.0.bottom" timestamp="1589216738953">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589204827015" />
-    <state width="1515" height="206" key="GridCell.Tab.0.center" timestamp="1589204827015">
+    <state width="1515" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589216738953" />
+    <state width="1515" height="206" key="GridCell.Tab.0.center" timestamp="1589216738953">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589204827015" />
-    <state width="1515" height="206" key="GridCell.Tab.0.left" timestamp="1589204827015">
+    <state width="1515" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589216738953" />
+    <state width="1515" height="206" key="GridCell.Tab.0.left" timestamp="1589216738953">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589204827015" />
-    <state width="1515" height="206" key="GridCell.Tab.0.right" timestamp="1589204827015">
+    <state width="1515" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589216738953" />
+    <state width="1515" height="206" key="GridCell.Tab.0.right" timestamp="1589216738953">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589204827015" />
+    <state width="1515" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589216738953" />
   </component>
 </project>
