@@ -1,13 +1,12 @@
 <div id="widget-canciones">
     <input type="text" class="form-control" placeholder="Filtrar por nombre"
            id="filtro-nombre"/>
-    <button class="btn" onclick="cargarAmigos()">Actualizar</button>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th><a onclick="ordenar()">Nombre</a></th>
-            <th><a onclick="ordenar()">Apellido</a></th>
-            <th><a onclick="ordenar()">Email</a></th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Email</th>
             <th><span>Mensajes sin leer</span></th>
             <th class="col-md-1"></th>
         </tr>
@@ -19,6 +18,8 @@
 
 <script>
     window.history.pushState("", "", "/cliente.html?w=amigos");
+
+    $('#filtro-nombre').attr('disabled', true);
 
     var amigos;
     var amigosActuales;
@@ -48,6 +49,7 @@
     function actualizarTabla(amigosMostrar){
         amigosActuales = amigosMostrar;
         actualizarTablaPorMensaje(amigosMostrar)
+        intervalAmigos = setInterval(actualizarSinLeer, 1000)
     }
 
     function actualizarTablaPorMensajeYActualizarMensajes(amigosMostrar, id, sinLeer) {
@@ -123,6 +125,7 @@
             }
             $('#' + id).text(sinLeer)
             canUpdateUnread = true;
+            $('#filtro-nombre').attr('disabled', false);
         });
     }
 
@@ -218,18 +221,19 @@
             });
 
             $( "#tablaCuerpo").empty();
-            for(i = 0; i < amigosActuales.length; i++) {
+            for(i = 0; i < amigosMostrar.length; i++) {
                 let idSinLeerTd = "sinLeerTd" + amigosActuales[i]._id
                 $( "#tablaCuerpo")
-                    .append( "<tr id="+amigosActuales[i]._id+">"+
-                        "<td>"+amigosActuales[i].nombre+"</td>"+
-                        "<td>"+amigosActuales[i].apellidos+"</td>"+
-                        "<td>"+amigosActuales[i].email+"</td>"+
+                    .append( "<tr id="+amigosMostrar[i]._id+">"+
+                        "<td>"+amigosMostrar[i].nombre+"</td>"+
+                        "<td>"+amigosMostrar[i].apellidos+"</td>"+
+                        "<td>"+amigosMostrar[i].email+"</td>"+
                         "<td id=" + idSinLeerTd + "></td>"+
-                        "<td><a onclick=widgetChat('"+amigosActuales[i].email+"')>Chat</a></td>"
+                        "<td><a onclick=widgetChat('"+amigosMostrar[i].email+"')>Chat</a></td>"
                         +"</tr>"
                     );
             }
+            $('#filtro-nombre').attr('disabled', false);
         });
     }
 
@@ -253,22 +257,5 @@
             clearInterval(intervalAmigos)
         $( "#contenedor-principal" ).load( "widget-chat.html" );
     }
-    var nombreDsc = true;
-
-    function ordenar() {
-        if (nombreDsc) {
-            amigos.sort(function () {
-                return 1;
-            });
-        } else {
-            amigos.sort(function () {
-                return -1;
-            });
-        }
-        actualizarTabla(amigos);
-        nombreDsc= !nombreDsc; //invertir
-    }
-
-    intervalAmigos = setInterval(actualizarSinLeer, 1000)
 
 </script>

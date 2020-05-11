@@ -55,4 +55,13 @@ public class PO_View {
 	static public boolean checkElementDoesNotExist(WebDriver driver, String xpath) {
 		return SeleniumUtils.EsperarCargarPaginaElementoNoExiste(driver, xpath, getTimeout());
 	}
+	
+	static public boolean checkElementDoesNotExistCustomTimeout(WebDriver driver, String xpath, int customTimeout) {
+		return SeleniumUtils.EsperarCargarPaginaElementoNoExiste(driver, xpath, customTimeout);
+	}
+	
+	static public List<WebElement> checkElementCustomTimeout(WebDriver driver, String criterio, String texto, int customTimeout) {
+		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, criterio, texto, customTimeout);		
+		return elementos;
+	}
 }

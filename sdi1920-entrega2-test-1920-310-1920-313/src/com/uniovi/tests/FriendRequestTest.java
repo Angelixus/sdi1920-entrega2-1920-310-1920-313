@@ -62,6 +62,14 @@ public class FriendRequestTest {
 
 	@BeforeClass
 	static public void begin() {
+		MongoClient client = new MongoClient(
+				new MongoClientURI(PropertyLoader.getInstance().getProperty("mongodb_connection")));
+		MongoDatabase database = client.getDatabase("socialnetwork");
+		Bson filter = Filters.eq("email", "GOHWinner@gmail.com");
+		BasicDBObject updateQuery = new BasicDBObject();
+		updateQuery.append("$set", new BasicDBObject().append("friendRequest_ids", new ObjectId[0]));
+		database.getCollection("usuarios").updateOne(filter, updateQuery);
+		client.close();
 	}
 
 	@AfterClass

@@ -4,8 +4,12 @@
     <list default="true" id="7303546a-8553-4bdf-90f3-fad066d760fb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/widget-amigos.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/widget-amigos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/widget-chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/widget-chat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapimensajes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/AllTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/AllTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/FriendRequestTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/FriendRequestTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/testConfig2.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/AllTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/AllTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/FriendRequestTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/FriendRequestTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/testConfig2.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,29 +91,29 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="201" key="GridCell.Tab.0.bottom" timestamp="1589167857148">
+    <state width="1899" height="201" key="GridCell.Tab.0.bottom" timestamp="1589181323592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1515" height="152" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589034773127" />
-    <state width="1899" height="201" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589167857148" />
+    <state width="1899" height="201" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589181323592" />
     <state width="1899" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849425" />
-    <state width="1899" height="201" key="GridCell.Tab.0.center" timestamp="1589167857148">
+    <state width="1899" height="201" key="GridCell.Tab.0.center" timestamp="1589181323592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1515" height="152" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589034773127" />
-    <state width="1899" height="201" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589167857148" />
+    <state width="1899" height="201" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589181323592" />
     <state width="1899" height="278" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849424" />
-    <state width="1899" height="201" key="GridCell.Tab.0.left" timestamp="1589167857147">
+    <state width="1899" height="201" key="GridCell.Tab.0.left" timestamp="1589181323591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1515" height="152" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589034773127" />
-    <state width="1899" height="201" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589167857147" />
+    <state width="1899" height="201" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589181323591" />
     <state width="1899" height="278" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849424" />
-    <state width="1899" height="201" key="GridCell.Tab.0.right" timestamp="1589167857148">
+    <state width="1899" height="201" key="GridCell.Tab.0.right" timestamp="1589181323592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1515" height="152" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589034773127" />
-    <state width="1899" height="201" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589167857148" />
+    <state width="1899" height="201" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589181323592" />
     <state width="1899" height="278" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588892849425" />
     <state width="1899" height="206" key="GridCell.Tab.1.bottom" timestamp="1589163725944">
       <screen x="0" y="0" width="1920" height="1040" />
