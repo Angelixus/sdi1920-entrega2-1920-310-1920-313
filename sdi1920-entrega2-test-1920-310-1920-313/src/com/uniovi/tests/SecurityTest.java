@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.properties.PropertyLoader;
+import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SecurityTest {
@@ -60,6 +62,16 @@ public class SecurityTest {
 	public void PR21() {
 		urlToGo = "peticiones";
 		PO_LoginView.checkElement(driver, "class", "btn btn-primary");
+	}
+	
+	@Test
+	public void PR22() {
+		PO_HomeView.clickOption(driver, "identificarse", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "GOHWinner@gmail.com", "123456");
+		PO_LoginView.checkElement(driver, "class", "btn btn-default");
+		
+		driver.navigate().to("https://localhost:8081/5eb45cea0bf25f4f442972da/amigos");
+		PO_View.checkElement(driver, "text", "Accion no permitida");
 	}
 	
 	@Test

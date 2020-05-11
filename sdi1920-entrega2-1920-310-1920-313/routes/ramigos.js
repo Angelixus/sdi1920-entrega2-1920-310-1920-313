@@ -59,4 +59,12 @@ module.exports = function (app, swig, gestorBD) {
             });
         })
     });
+    app.get('/:id/amigos', function (req, res) {
+        if(req.params.id != req.session.usuarioId) {
+            res.status(403);
+            res.send("Accion no permitida")
+        } else {
+            res.redirect('/amigos');
+        }
+    });
 };
