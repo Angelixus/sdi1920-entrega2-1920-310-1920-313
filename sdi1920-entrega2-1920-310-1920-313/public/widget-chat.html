@@ -77,7 +77,9 @@
                                 }
                             })
                         } else {
-                            $('#' + divId).append('<span class="chat-message-destino-message-read">Leido</span>')
+                            if($('#' + divId + '> .chat-message-destino-message-read').length === 0) {
+                                $('#' + divId).append('<span class="chat-message-destino-message-read">Leido</span>')
+                            }
                         }
                     } else {
                         $('#chat-messages').append('<div class="chat-message-container"><div class="chat-message-emisor"><span class="chat-message-emisor-message">' + respuesta.mensajes[messagesIndex].texto + '</span></div></div>');
