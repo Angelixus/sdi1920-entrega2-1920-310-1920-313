@@ -14,6 +14,7 @@
     $('#widget-chat').prepend('<h2>Estas hablando con ' + destino + '</h2>');
 
     var messages = [];
+    var intervalChat;
 
     function enviarMensaje() {
         $.ajax({
@@ -30,6 +31,7 @@
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
+                clearInterval()
             }
         });
     }
@@ -66,7 +68,8 @@
                                     $('#' + divId).append('<span class="chat-message-destino-message-read">Leido</span>')
                                 },
                                 error: function (error) {
-
+                                    $("#contenedor-principal").load("widget-login.html");
+                                    clearInterval();
                                 }
                             })
                         } else {
@@ -79,9 +82,10 @@
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
+                clearInterval();
             }
         });
     }
 
-    setInterval(updateChat, 1000);
+    intervalChat = setInterval(updateChat, 1000);
 </script>

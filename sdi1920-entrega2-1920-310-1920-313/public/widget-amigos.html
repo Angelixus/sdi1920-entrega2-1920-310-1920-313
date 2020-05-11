@@ -22,6 +22,7 @@
 
     var amigos;
     var amigosActuales;
+    var intervalAmigos;
     function cargarAmigos(){
         $.ajax({
             url: URLbase + "/amigos",
@@ -35,6 +36,7 @@
             },
             error : function(error){
                 $( "#contenedor-principal").load("widget-login.html");
+                clearInterval()
             }
         });
     }
@@ -60,6 +62,7 @@
         for(i = 0; i < amigosActuales.length; i++) {
             let idSinLeerDiv = "sinLeerDiv" + amigosActuales[i]._id;
             let idSinLeerTd = "sinLeerTd" + amigosActuales[i]._id
+            let idSinLeerSpan = "sinLeerSpan" + amigosActuales[i]._id
             $.ajax({
                 url: URLbase + "/mensajes/sinleer",
                 type: "POST",
@@ -69,11 +72,17 @@
                 dataType: 'json',
                 headers: { "token": token },
                 success: function(respuesta) {
-                    $('#' + idSinLeerDiv).remove();
-                    $('#' + idSinLeerTd).append('<div id=' + idSinLeerDiv + '><span>' + respuesta.sinLeer + '</span></div>');
+                    if($('#' + idSinLeerSpan).length === 0) {
+                        console.log("MI pana")
+                        $('#' + idSinLeerTd).append('<div id=' + idSinLeerDiv + '><span id=' + idSinLeerSpan + '>' + respuesta.sinLeer + '</span></div>');
+                    } else {
+                        console.log("MI miguel")
+                        $('#' + idSinLeerSpan).text(respuesta.sinLeer)
+                    }
                 },
                 error : function(error){
                     $( "#contenedor-principal").load("widget-login.html");
+                    clearInterval()
                 }
             });
         }
@@ -95,6 +104,7 @@
 
     function widgetChat(amigoDestino) {
         destino = amigoDestino;
+        clearInterval()
         $( "#contenedor-principal" ).load( "widget-chat.html" );
     }
     var nombreDsc = true;
