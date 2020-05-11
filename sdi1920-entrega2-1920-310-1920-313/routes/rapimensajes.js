@@ -69,38 +69,57 @@ module.exports = function (app, gestorBD) {
         })
     })
 
-    app.post("/api/mensaje", function (req, res) {
-        let nowTime = Date.now();
-        var mensaje = {
-            emisor: req.session.usuario,
-            destino: req.body.destino,
-            texto: req.body.texto,
-            leido: false,
-            fecha_creacion: nowTime
-        }
-        var criterio = {email: req.body.destino}
-
-        gestorBD.obtenerUsuario(criterio, function (usuario) {
-            if(usuario == null){
+    app.post("/api/mensaje",function(req,res){
+        gestorBD.obtenerUsuario({email: req.body.destino}, function(dest){
+            if(dest == null){
                 res.status(500);
-                res.json({error: "se ha producido un error"})
-            }else{
-                gestorBD.obtenerAmigos({email: req.session.usuario}, function(amigos){
-                   if(amigos.length == 0 || amigos == null){
-                       res.status(500);
-                       res.json({error: "se ha producido un error"})
-                   } else{
-                       gestorBD.insertarMensaje(mensaje,function(id){
-                           if(id ==null){
-                               res.status(500);
-                               res.json({error :"Error: No eres amigo de este usuario"})
-                           } else {
-                               res.status(201);
-                               res.json({mensaje :"mensaje insertada", _id :id})
-                           }
-                       });
-                   }
-                });
+                res.json({error :"Error: Ha ocurrido un error"})
+            } else {
+                let nowTime = Date.now();
+                var mensaje = {
+                    emisor: req.session.usuario,
+                    destino: dest.email,
+                    texto: req.body.texto,
+                    leido: false,
+                    fecha_creacion: nowTime
+                }
+                gestorBD.obtenerUsuario({email: mensaje.emisor}, function(emis){
+                    if(emis == null){
+                        res.status(500);
+                        res.json({error :"Error: Ha ocurrido un error"})
+                    }else{
+                        var criterioEmisor = {
+                            friend_ids: emis.friend_ids
+                        }
+                        gestorBD.obtenerAmigos(criterioEmisor, function(amigos){
+                            if(amigos==null){
+                                res.status(500);
+                                res.json({error :"Error: Ha ocurrido un error"})
+                            } else {
+                                let found=false;
+                                for(i = 0; i<amigos.length; i++){
+                                    let temp = amigos[i].email;
+                                    if(emis.email === temp);
+                                    found = true;
+                                }
+                                if(!found){
+                                    res.status(500);
+                                    res.json({error :"Error: No eres amigo de este usuario"})
+                                }else{
+                                    gestorBD.insertarMensaje(mensaje,function(id){
+                                        if(id ==null){
+                                            res.status(500);
+                                            res.json({error :"Error: Ha ocurrido un error"})
+                                        } else {
+                                            res.status(201);
+                                            res.json({mensaje :"mensaje insertado", _id :id})
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                })
             }
         });
     });

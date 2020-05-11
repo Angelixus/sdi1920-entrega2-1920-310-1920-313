@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7303546a-8553-4bdf-90f3-fad066d760fb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/widget-amigos.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/widget-amigos.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapimensajes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
