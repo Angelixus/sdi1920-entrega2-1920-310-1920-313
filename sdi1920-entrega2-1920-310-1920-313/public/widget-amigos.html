@@ -12,6 +12,7 @@
         </tr>
         </thead>
         <tbody id="tablaCuerpo">
+            <td><p id="loading-text">Loading...</p></td>
         </tbody>
     </table>
 </div>
@@ -39,6 +40,7 @@
                 actualizarTabla(amigos);
             },
             error : function(error){
+                console.log(error)
                 $( "#contenedor-principal").load("widget-login.html");
                 if(intervalAmigos)
                     clearInterval(intervalAmigos)
@@ -219,6 +221,8 @@
             amigosActuales = amigosMostrar.sort(function (a, b) {
                 return sortedEmails.indexOf(a.email) - sortedEmails.indexOf(b.email)
             });
+
+            $('#loading-text').remove()
 
             $( "#tablaCuerpo").empty();
             for(i = 0; i < amigosMostrar.length; i++) {
