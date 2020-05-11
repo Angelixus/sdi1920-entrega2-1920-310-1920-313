@@ -1,4 +1,4 @@
-module.exports = function (app, gestorBD) {
+module.exports = function (app, gestorBD, logger) {
 
     app.get("/api/amigos", function (req, res) {
         let criterio = {
@@ -6,6 +6,7 @@ module.exports = function (app, gestorBD) {
         }
         gestorBD.obtenerUsuario(criterio, function (usuario) {
             if (usuario == null) {
+                logger.error("[API] " + req.session.usuario + ": Se ha producido un error al mostrar los amigos");
                 res.status(500);
                 res.json({error: "se ha producido un error"})
             } else {
@@ -39,9 +40,11 @@ module.exports = function (app, gestorBD) {
 
                 gestorBD.obtenerAmigos(allIdsCriterio, function (amigos) {
                     if (amigos == null) {
+                        logger.error("[API] " + req.session.usuario + ": Se ha producido un error al mostrar los amigos");
                         res.status(500);
                         res.json({error: "se ha producido un error"})
                     } else {
+                        logger.info("[API] " + req.session.usuario + ": Se ha mostrado la lista de amigos");
                         res.status(200);
                         res.send(JSON.stringify(amigos));
                     }
@@ -103,14 +106,17 @@ module.exports = function (app, gestorBD) {
                                     found = true;
                                 }
                                 if(!found){
+                                    logger.error("[API] " + req.session.usuario + ": Se ha producido un error al mandar un mensaje");
                                     res.status(500);
                                     res.json({error :"Error: No eres amigo de este usuario"})
                                 }else{
                                     gestorBD.insertarMensaje(mensaje,function(id){
                                         if(id ==null){
+                                            logger.error("[API] " + req.session.usuario + ": Se ha producido un error al mandar un mensaje");
                                             res.status(500);
                                             res.json({error :"Error: Ha ocurrido un error"})
                                         } else {
+                                            logger.info("[API] " + req.session.usuario + ": Ha mandado un mensaje");
                                             res.status(201);
                                             res.json({mensaje :"mensaje insertado", _id :id})
                                         }
@@ -167,11 +173,13 @@ module.exports = function (app, gestorBD) {
 
         gestorBD.obtenerUsuario(criterio, function (usuario) {
             if (usuario == null) {
+                logger.info("Se ha producido un intento de identificacion fallido");
                 res.status(401); //Unathorized
                 res.json({
                     autenticado: false
                 })
             } else {
+                logger.info("[API] " + "El usuario " + criterio.email + " se ha autenticado");
                 var token = app.get('jwt').sign({
                     usuario: criterio.email,
                     tiempo: Date.now() / 1000
