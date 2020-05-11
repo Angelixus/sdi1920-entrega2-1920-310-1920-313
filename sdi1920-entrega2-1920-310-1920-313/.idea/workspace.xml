@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7303546a-8553-4bdf-90f3-fad066d760fb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/berror.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/cliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/cliente.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/ClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/ClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/FriendTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/src/com/uniovi/tests/FriendTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/META-INF/maven/sdi1920-entrega2-test-1920-310-1920-313/sdi1920-entrega2-test-1920-310-1920-313/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/META-INF/maven/sdi1920-entrega2-test-1920-310-1920-313/sdi1920-entrega2-test-1920-310-1920-313/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/ClientTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/ClientTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/FriendTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sdi1920-entrega2-test-1920-310-1920-313/target/classes/com/uniovi/tests/FriendTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +82,7 @@
       <workItem from="1588892735230" duration="1581000" />
       <workItem from="1588935247609" duration="2491000" />
       <workItem from="1588961992116" duration="5273000" />
-      <workItem from="1589189379519" duration="672000" />
+      <workItem from="1589189379519" duration="1054000" />
     </task>
     <servers />
   </component>
