@@ -22,7 +22,8 @@ let https = require('https');
 
 var log4js = require('log4js');
 let logger = log4js.getLogger();
-logger.level = "all";
+logger.level = "ALL";
+
 let expressSession = require('express-session');
 app.use(expressSession({
     "secret" : 'solo_leveling',
@@ -110,7 +111,7 @@ app.set('crypto', crypto);
 
 require('./routes/rusuarios.js')(app, swig, gestorBD, logger);
 require('./routes/rpeticiones.js')(app, swig, gestorBD, logger);
-require('./routes/ramigos.js')(app, swig, gestorBD);
+require('./routes/ramigos.js')(app, swig, gestorBD, logger);
 require('./routes/rapimensajes.js')(app, gestorBD, logger);
 
 app.get("/home", function(req, res) {

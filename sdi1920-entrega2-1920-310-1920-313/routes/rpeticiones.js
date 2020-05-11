@@ -108,6 +108,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                             paginas.push(i);
                         }
                     }
+                    logger.info(req.session.usuario + ": Ha entrado en la vista de peticiones");
                     res.send(swig.renderFile("views/blistapeticionesdeamistad.html", {
                         "usuarioSession": req.session.usuario,
                         "users": usuarios,

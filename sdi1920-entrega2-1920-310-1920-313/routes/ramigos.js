@@ -50,7 +50,7 @@ module.exports = function (app, swig, gestorBD, logger) {
                             paginas.push(i);
                         }
                     }
-                    logger.info(req.session.usuario +": Se ha mostrado la lista de amigos");
+                    logger.info(req.session.usuario + ": Se ha mostrado la lista de amigos");
                     res.send(swig.renderFile("views/bamigos.html", {
                         "usuarioSession": req.session.usuario,
                         "users": usuarios,

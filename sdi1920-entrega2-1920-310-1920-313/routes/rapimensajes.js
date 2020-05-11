@@ -44,6 +44,7 @@ module.exports = function (app, gestorBD, logger) {
                         res.status(500);
                         res.json({error: "se ha producido un error"})
                     } else {
+                        logger.info("[API] " + req.session.usuario + ": Se ha mostrado la lista de amigos");
                         res.status(200);
                         res.send(JSON.stringify(amigos));
                     }
@@ -146,17 +147,14 @@ module.exports = function (app, gestorBD, logger) {
                     }
                     gestorBD.updateMessage({"_id": mensaje._id}, {$set: newMessage}, function(result) {
                         if(result === false) {
-                            logger.error("[API] " + req.session.usuario + ": Se ha producido un error al marcar como leido un mensaje");
                             res.status(500);
                             res.json({error: "se ha producido un error"})
                         } else {
-                            logger.info("[API] " + req.session.usuario + ": Ha marcado como leido un mensaje");
                             res.status(200);
                             res.json({mensaje: "se ha marcado el mensaje como leido"})
                         }
                     })
                 } else {
-                    logger.error("[API] " + req.session.usuario + ": Se ha producido un error al marcar como leido un mensaje");
                     res.status(403);
                     res.json({error: "El usuario no es el receptor del mensaje"});
                 }
