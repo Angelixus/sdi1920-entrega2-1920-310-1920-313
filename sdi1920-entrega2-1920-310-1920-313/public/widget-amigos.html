@@ -23,6 +23,9 @@
     var amigos;
     var amigosActuales;
     var intervalAmigos;
+    var mapUnread = {};
+    var canUpdateUnread = true;
+
     function cargarAmigos(){
         $.ajax({
             url: URLbase + "/amigos",
@@ -36,26 +39,91 @@
             },
             error : function(error){
                 $( "#contenedor-principal").load("widget-login.html");
-                clearInterval()
+                if(intervalAmigos)
+                    clearInterval(intervalAmigos)
             }
         });
     }
 
     function actualizarTabla(amigosMostrar){
         amigosActuales = amigosMostrar;
-        $( "#tablaCuerpo").empty(); // Vaciar la tabla
+        actualizarTablaPorMensaje(amigosMostrar)
+    }
+
+    function actualizarTablaPorMensajeYActualizarMensajes(amigosMostrar, id, sinLeer) {
+        let requests = [];
+        let sortedEmails = [];
         for(i = 0; i < amigosMostrar.length; i++) {
-            let idSinLeerTd = "sinLeerTd" + amigosMostrar[i]._id
-            $( "#tablaCuerpo")
-                .append( "<tr id="+amigosMostrar[i]._id+">"+
-                    "<td>"+amigosMostrar[i].nombre+"</td>"+
-                    "<td>"+amigosMostrar[i].apellidos+"</td>"+
-                    "<td>"+amigosMostrar[i].email+"</td>"+
-                    "<td id=" + idSinLeerTd + "></td>"+
-                    "<td><a onclick=widgetChat('"+amigosMostrar[i].email+"')>Chat</a></td>"
-                    +"</tr>"
-                );
+            let ajaxRequest = $.ajax({
+                url: URLbase + "/mensajes",
+                type: "POST",
+                data: {
+                    requestUser: emisor,
+                    requestOtherUser: amigosMostrar[i].email
+                },
+                dataType: 'json',
+                headers: { "token": token },
+                success: function(respuesta) {
+                },
+                error : function(error){
+                    $( "#contenedor-principal").load("widget-login.html");
+                    if(intervalAmigos)
+                        clearInterval(intervalAmigos)
+                }
+            });
+            requests.push(ajaxRequest)
         }
+
+        $.when.apply(null, requests).then(function () {
+            $.each(arguments, function (i, arg) {
+                var status = arg[1]
+                var data = arg[0]
+                if(status === 'success') {
+                    if(data.mensajes.length > 0) {
+                        let sortedData =  data.mensajes.sort(function (a, b) {
+                            return b.fecha_creacion - a.fecha_creacion;
+                        });
+                        sortedEmails.push(sortedData[0]);
+                    }
+                }
+            });
+
+            sortedEmails = sortedEmails.sort(function (a, b) {
+                return b.fecha_creacion - a.fecha_creacion
+            });
+
+            sortedEmails = sortedEmails.map(element => {
+                if(element.emisor === emisor) {
+                    return element.destino
+                }
+                return element.emisor
+            })
+
+            for(i = 0; i < amigosMostrar.length; i++) {
+                if(sortedEmails.indexOf(amigosMostrar[i].email) === -1)
+                    sortedEmails.push(amigosMostrar[i].email)
+            }
+
+            amigosActuales = amigosMostrar.sort(function (a, b) {
+                return sortedEmails.indexOf(a.email) - sortedEmails.indexOf(b.email)
+            });
+
+            $( "#tablaCuerpo").empty();
+            for(i = 0; i < amigosMostrar.length; i++) {
+                let idSinLeerTd = "sinLeerTd" + amigosMostrar[i]._id
+                $( "#tablaCuerpo")
+                    .append( "<tr id="+amigosMostrar[i]._id+">"+
+                        "<td>"+amigosMostrar[i].nombre+"</td>"+
+                        "<td>"+amigosMostrar[i].apellidos+"</td>"+
+                        "<td>"+amigosMostrar[i].email+"</td>"+
+                        "<td id=" + idSinLeerTd + "></td>"+
+                        "<td><a onclick=widgetChat('"+amigosMostrar[i].email+"')>Chat</a></td>"
+                        +"</tr>"
+                    );
+            }
+            $('#' + id).text(sinLeer)
+            canUpdateUnread = true;
+        });
     }
 
     function actualizarSinLeer() {
@@ -73,19 +141,96 @@
                 headers: { "token": token },
                 success: function(respuesta) {
                     if($('#' + idSinLeerSpan).length === 0) {
-                        console.log("MI pana")
                         $('#' + idSinLeerTd).append('<div id=' + idSinLeerDiv + '><span id=' + idSinLeerSpan + '>' + respuesta.sinLeer + '</span></div>');
+                        mapUnread[idSinLeerSpan] = $('#' + idSinLeerSpan).text();
                     } else {
-                        console.log("MI miguel")
-                        $('#' + idSinLeerSpan).text(respuesta.sinLeer)
+                        if(mapUnread[idSinLeerSpan] != respuesta.sinLeer && canUpdateUnread) {
+                            canUpdateUnread = false;
+                            actualizarTablaPorMensajeYActualizarMensajes(amigosActuales, idSinLeerSpan, respuesta.sinLeer);
+                        }
                     }
                 },
                 error : function(error){
                     $( "#contenedor-principal").load("widget-login.html");
-                    clearInterval()
+                    if(intervalAmigos)
+                        clearInterval(intervalAmigos)
                 }
             });
         }
+    }
+
+    function actualizarTablaPorMensaje(amigosMostrar) {
+        let requests = [];
+        let sortedEmails = [];
+        for(i = 0; i < amigosMostrar.length; i++) {
+            let ajaxRequest = $.ajax({
+                url: URLbase + "/mensajes",
+                type: "POST",
+                data: {
+                    requestUser: emisor,
+                    requestOtherUser: amigosMostrar[i].email
+                },
+                dataType: 'json',
+                headers: { "token": token },
+                success: function(respuesta) {
+                },
+                error : function(error){
+                    $( "#contenedor-principal").load("widget-login.html");
+                    if(intervalAmigos)
+                        clearInterval(intervalAmigos)
+                }
+            });
+            requests.push(ajaxRequest)
+        }
+
+        $.when.apply(null, requests).then(function () {
+            $.each(arguments, function (i, arg) {
+                var status = arg[1]
+                var data = arg[0]
+                if(status === 'success') {
+                    if(data.mensajes.length > 0) {
+                        let sortedData =  data.mensajes.sort(function (a, b) {
+                            return b.fecha_creacion - a.fecha_creacion;
+                        });
+                        sortedEmails.push(sortedData[0]);
+                    }
+                }
+            });
+
+            sortedEmails = sortedEmails.sort(function (a, b) {
+                return b.fecha_creacion - a.fecha_creacion
+            });
+
+            sortedEmails = sortedEmails.map(element => {
+                if(element.emisor === emisor) {
+                    return element.destino
+                }
+                return element.emisor
+            })
+
+            for(i = 0; i < amigosMostrar.length; i++) {
+                if(sortedEmails.indexOf(amigosMostrar[i].email) === -1)
+                    sortedEmails.push(amigosMostrar[i].email)
+            }
+
+            amigosActuales = amigosMostrar.sort(function (a, b) {
+                return sortedEmails.indexOf(a.email) - sortedEmails.indexOf(b.email)
+            });
+
+            $( "#tablaCuerpo").empty();
+            for(i = 0; i < amigosActuales.length; i++) {
+                let idSinLeerTd = "sinLeerTd" + amigosActuales[i]._id
+                $( "#tablaCuerpo")
+                    .append( "<tr id="+amigosActuales[i]._id+">"+
+                        "<td>"+amigosActuales[i].nombre+"</td>"+
+                        "<td>"+amigosActuales[i].apellidos+"</td>"+
+                        "<td>"+amigosActuales[i].email+"</td>"+
+                        "<td id=" + idSinLeerTd + "></td>"+
+                        "<td><a onclick=widgetChat('"+amigosActuales[i].email+"')>Chat</a></td>"
+                        +"</tr>"
+                    );
+            }
+        });
     }
 
     cargarAmigos();
@@ -104,7 +249,8 @@
 
     function widgetChat(amigoDestino) {
         destino = amigoDestino;
-        clearInterval()
+        if(intervalAmigos)
+            clearInterval(intervalAmigos)
         $( "#contenedor-principal" ).load( "widget-chat.html" );
     }
     var nombreDsc = true;
@@ -123,6 +269,6 @@
         nombreDsc= !nombreDsc; //invertir
     }
 
-    setInterval(actualizarSinLeer, 1000)
+    intervalAmigos = setInterval(actualizarSinLeer, 1000)
 
 </script>

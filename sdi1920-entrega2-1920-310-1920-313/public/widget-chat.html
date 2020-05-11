@@ -31,7 +31,8 @@
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
-                clearInterval()
+                if(intervalChat)
+                    clearInterval(intervalChat);
             }
         });
     }
@@ -69,7 +70,8 @@
                                 },
                                 error: function (error) {
                                     $("#contenedor-principal").load("widget-login.html");
-                                    clearInterval();
+                                    if(intervalChat)
+                                        clearInterval(intervalChat);
                                 }
                             })
                         } else {
@@ -82,7 +84,8 @@
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
-                clearInterval();
+                if(intervalChat)
+                    clearInterval(intervalChat);
             }
         });
     }
